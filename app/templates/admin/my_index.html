@@ -1,0 +1,73 @@
+{% extends 'admin/my_master.html' %}
+{% block head %}
+<meta charset="UTF-8">
+    <title>LOGIN</title>
+
+
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.ico') }}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" href="{{ url_for('static', filename='vendor_login/bootstrap/css/bootstrap.min.css') }}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" href="{{ url_for('static', filename='fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" href="{{ url_for('static', filename='fonts/font-login/iconic/css/material-design-iconic-font.min.css') }}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" href="{{ url_for('static', filename='vendor_login/animate/animate.css') }}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" href="{{ url_for('static', filename='vendor_login/css-hamburgers/hamburgers.min.css') }}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" href="{{ url_for('static', filename='vendor_login/animsition/css/animsition.min.css') }}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" href="{{ url_for('static', filename='vendor_login/select2/select2.min.css') }}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" href="{{ url_for('static', filename='vendor_login/daterangepicker/daterangepicker.css') }}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/util.css') }}"/>
+	<link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+
+{% block body %}
+{% if current_user.is_authenticated %}
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+       <h1 class="display-4">Hệ Thống Quản Lý Bán Vé Máy Bay</h1>
+    <p class="lead">Chào Mừng {{ current_user.name }} đến với hệ thống</p>
+  </div>
+</div>
+{% else %}
+<div class="container">
+	{% include 'admin/login.html' %}
+</div>
+<style>
+nav.main-header.navbar.navbar-expand.navbar-white.navbar-light {
+    display: none;
+}
+aside.main-sidebar.sidebar-dark-primary.elevation-4 {
+    display: none;
+}
+.content-wrapper {
+	margin: 0!important;
+}
+footer.main-footer {
+	display: none;
+}
+</style>
+{% endif %}
+{% endblock %}
+<!--===============================================================================================-->
+	<script src="{{ url_for('static', filename='vendor_login/jquery/jquery-3.2.1.min.js') }}"></script>
+<!--=========================================================================================-->
+	<script src="{{ url_for('static', filename='vendor_login/animsition/js/animsition.min.js') }}"></script>
+<!--=========================================================================================-->
+	<script src="{{ url_for('static', filename='vendor_login/bootstrap/js/popper.js') }}"></script>
+	<script src="{{ url_for('static', filename='vendor_login/bootstrap/js/bootstrap.min.js') }}"></script>
+<!--=========================================================================================-->
+	<script src="{{ url_for('static', filename='vendor_login/select2/select2.min.js') }}"></script>
+<!--=========================================================================================-->
+	<script src="{{ url_for('static', filename='vendor_login/daterangepicker/moment.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='vendor_login/daterangepicker/daterangepicker.js') }}"></script>
+<!--=========================================================================================-->
+	<script src="{{ url_for('static', filename='vendor_login/countdowntime/countdowntime.js') }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ url_for('static', filename='js/main.js') }}"></script>
