@@ -1,0 +1,520 @@
+{% extends 'index.html' %}
+{%block head%}
+{{ super() }}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+<style>
+.find-fight label {
+    float: left;
+    margin-bottom: 5px;
+    margin-right: 10px;
+}
+
+*{
+   font-size: 13px;
+}
+.header{
+   margin-bottom: 83px;
+}
+.flightListContainer{
+    font-size: 14px;
+    color: #616161;
+}
+.v-margin-bottom-15{
+    margin-bottom: 15px;
+}
+.body-data-flight{
+    width: 100%;
+    margin: 0 auto;
+}
+.header-data-flight{
+    width: 100%;
+    margin-right: 0;
+    margin-left:  0;
+}
+.col-xs-12.hidden-xs{
+    width: 100%;
+}
+.col-xs-12.flight-step-header.hidden-xs.depart{
+    box-shadow: 0 0px 1px rgba(0,0,0,0.2);
+    padding: 8px 14px;
+    background-color: rgba(255,255,255,0.5);
+}
+h4.depart-name.no-margin{
+    margin-left: 10px;
+}
+.title-body-data-flight{
+    font-size: 18px;
+    font-weight: bold;
+    color: #003C71;
+    margin: 10px 10px;
+    margin-bottom: 30px;
+}
+.air-ticket{
+    border: solid 2px #e52822;
+    margin-bottom: 10px;
+}
+.air-ticket .body-ticket.row{
+    box-shadow: 0 0 8px 0 rgba(38,190,214,0.2);
+    padding: 30px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.normal{
+    color: #828282;
+    font-size: 12px;
+}
+.font-16 .time {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+}
+.font-16 .time i{
+    transform: rotate(46deg);
+    padding: 0 10px;
+    float: right;
+}
+.font-16 .flight-time{
+    font-size: 16px;
+}
+.price{
+    font-size: 20px;
+    font-weight: bold;
+}
+.air-ticket button.btn.btn-success{
+    width: 80%;
+}
+.air-ticket .tittle{
+    display: flex;
+}
+.air-ticket .tittle .detail-ticket{
+    margin-right: 30px;
+}
+.collapse{
+    width: 100%;
+    border: 2px #26bed6 solid;
+    margin-bottom: 10px;
+    padding:20px;
+}
+.row{
+    margin: 0 auto;
+}
+.time-flight{
+    padding-left: 0px;
+    padding-right: 5px;
+}
+.collapse ul{
+    list-style-type: none;
+    padding-left: 0;
+}
+.collapse ul li{
+    position: relative;
+    line-height: 24px;
+    font-size: 14px;
+}
+.time-flight .time{
+    color: #222222;
+    font-weight: 400;
+}
+.time-flight  label{
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.time-flight .bottom{
+    bottom: 0;
+}
+.time-flight .time .dot-flight{
+    position: absolute;
+    right: -4px;
+    border: 1px solid #26bed6;
+    border-radius: 50%;
+    height: 9px;
+    width: 9px;
+    margin: 0;
+}
+.time-flight .day{
+    color: #828282;
+}
+.time-flight .li-border{
+    border-right: 1px solid #26bed6;
+}
+.time-flight .day .dot-flight{
+    position: absolute;
+    right: -4px;
+    border: 1px solid #26bed6;
+    border-radius: 50%;
+    height: 9px;
+    width: 9px;
+    margin: 0;
+    top: 0;
+}
+.position-flight .shadow-text{
+    font-size: 14px;
+    color: #828282;
+}
+.shadow-text{
+    font-size: 14px;
+    color: #828282;
+}
+p.title {
+    font-size: 14px;
+}
+.div-last-child{
+    line-height: 0px;
+    width: 100%;
+}
+.line-box{
+    width: 100%;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    margin: 15px 0;
+}
+</style>
+{%endblock%}
+{%block body%}
+ <div class="loader_bg">
+         <div class="loader"><img src="{{ url_for('static', filename='images/loading.gif') }}" alt="#" /></div>
+ </div>
+<header>
+         <!-- header inner -->
+         <div class="header">
+            <div class="header_white_section">
+               <div class="container-fluid">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <div class="header_information">
+                           <ul>
+                              <li><img src="{{ url_for('static', filename='images/1.png') }}" alt="#"/> 371 Nguyễn Kiệm Street </li>
+                              <li><img src="{{ url_for('static', filename='images/2.png') }}" alt="#"/> +03568181998</li>
+                              <li><img src="{{ url_for('static', filename='images/3.png') }}" alt="#"/> nguyenleanhtuan2708@gmail.com</li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="container">
+               <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                     <div class="full">
+                        <div class="center-desk">
+                           <div class="logo"><a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="#"></a> </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                     <div class="menu-area">
+                        <div class="limit-box">
+                           <nav class="main-menu">
+                              <ul class="menu-area-main">
+                                 <li class="active"> <a href="{{ url_for('index') }}">Home</a> </li>
+                                 <li> <a href="#about">About</a> </li>
+                                 <li><a href="#travel">Travel</a></li>
+                                 <li><a href="#blog">Blog</a></li>
+                                 <li><a href="#contact">Contact Us</a></li>
+                                 <li><a href="#contact">Login</a></li>
+                              </ul>
+                           </nav>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- end header inner -->
+      </header>
+<section class="find-fight">
+     <div class="container">
+         <form method="post" class="main-form">
+                        <h3>Search for <em>air tickets</em>:</h3>
+                        <div class="row">
+                           <div class="col-md-9">
+                              <div class="row">
+                                 <div class="col-md-6">
+                                      <div class="radio-select">
+                                          <div class="row">
+                                              <div class="col-md-6 col-sm-6 col-xs-6">
+                                                  <label for="round">Round</label>
+                                                  <input type="radio" name="trip" id="round" value="round" checked="true" requiredonchange="this.form.()">
+                                              </div>
+                                              <div class="col-md-6 col-sm-6 col-xs-6">
+                                                  <label for="oneway">Oneway</label>
+                                                  <input type="radio" name="trip" id="oneway" value="one-way" requiredonchange="this.form.()">
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                                    <label >From</label>
+                                    <select class="form-control" required name="To" onchange="this.form.()">
+                                           <option value="">Select a location...</option>
+                                       {% for tt in tinhThanh %}
+
+                                       <option value="{{tt.id}}">{{tt.tenTinhThanh}}</option>
+<!--                                       <option value="Hong Kong">Hong Kong</option>-->
+<!--                                       <option value="India">India</option>-->
+<!--                                       <option value="Japan">Japan</option>-->
+<!--                                       <option value="Korea">Korea</option>-->
+<!--                                       <option value="Laos">Laos</option>-->
+<!--                                       <option value="Myanmar">Myanmar</option>-->
+<!--                                       <option value="Singapore">Singapore</option>-->
+<!--                                       <option value="Thailand">Thailand</option>-->
+<!--                                       <option value="Vietnam">Vietnam</option>-->
+                                       {% endfor %}
+                                    </select>
+                                 </div>
+                                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                                    <label >To</label>
+                                    <select class="form-control" required name="From" onchange="this.form.()">
+                                       <option value="">Select a destination...</option>
+                                       {% for tt in tinhThanh %}
+                                          <option value="{{tt.id}}">{{tt.tenTinhThanh}}</option>-->
+                                       {%endfor%}
+<!--                                       <option value="Cambodia">Cambodia</option>-->
+<!--                                       <option value="Hong Kong">Hong Kong</option>-->
+<!--                                       <option value="India">India</option>-->
+<!--                                       <option value="Japan">Japan</option>-->
+<!--                                       <option value="Korea">Korea</option>-->
+<!--                                       <option value="Laos">Laos</option>-->
+<!--                                       <option value="Myanmar">Myanmar</option>-->
+<!--                                       <option value="Singapore">Singapore</option>-->
+<!--                                       <option value="Thailand">Thailand</option>-->
+<!--                                       <option value="Vietnam">Vietnam</option>-->
+                                    </select>
+                                 </div>
+                                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                                    <label >Min Price</label>
+                                    <input class="form-control" placeholder="00.0" type="text" name="00.0">
+                                 </div>
+                                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                                    <label >Departure date:</label>
+                                    <input class="form-control" placeholder="Any" type="date" name="Any">
+                                 </div>
+                                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12" >
+                                    <label >Return date:</label>
+                                    <input class="form-control" placeholder="Any" type="date" name="Any" id="return-date">
+                                 </div>
+                                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                                    <label >Max Price</label>
+                                    <input class="form-control" placeholder="00.0" type="text" name="00.0">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
+                              <input class="btn btn-success search" type="submit" value="Search" >
+                           </div>
+                        </div>
+                     </form>
+     </div>
+</section>
+<section class="air-ticket-list">
+        <div class="col-xs-12 v-margin-bottom-15">
+            <div class="row container body-data-flight">
+                <div class="col-xs-12 col-sm-6 col-md-12 v-margin-bottom-15 flightListContainer depart">
+                    <div class="col-xs-12 flight-step-header hidden-xs depart">
+                        <div class="row flight-step-header-container">
+                            <div class="col-xs-12 hidden-xs">
+                                <div class="row header-data-flight">
+                                    <div class="col-xs-9 col-md-9 no-padding">
+                                        <h4 class="depart-name no-margin">
+                                          {{place_start}} → {{place_end}}
+                                        </h4>
+                                    </div>
+                                    <div class="col-xs-3 col-md-3 no-padding date-depart text-right">
+                                        <h4 class="date-flight"> {{date_time_depart}}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="body-data-flight">
+                    <p class="title-body-data-flight">Recommend the best way for you</p>
+                    {%if list_fight != None%}
+                    {%for f in list_fight %}
+                    <div class="air-ticket">
+                        <div class="row body-ticket">
+                            <div class="col-3">
+                                <h4 class="font-16">
+                                    <div class="time">
+                                        {{f["thoiDiemKhoiHanh"].time()}}<i class="fa fa-plane"></i>
+                                    </div>
+                                    <div class="place-to normal">{{f["tinhThanhDi"]}}</div>
+                                </h4>
+                            </div>
+                            <div class="col-3">
+                                <h4 class="font-16">
+                                    <div class="time">
+                                        {{f["thoiDiemHaCanh"].time()}}
+                                    </div>
+                                    <div class="place-from normal">{{f["tinhThanhDen"]}}</div>
+                                </h4>
+                            </div>
+                            <div class="col-3">
+                                <h4 class="font-16">
+                                    <div class="flight-time">
+                                       Time: {{f.thoiGianBay}}
+                                    </div>
+                                </h4>
+                            </div>
+                            <div class="col-3">
+                                <div class="price">
+                                    500.000 VNĐ
+                                </div>
+                                <button class="btn btn-success">Buy</button>
+                            </div>
+                            <div class="col-12">
+                                <div class="tittle">
+                                    <a href="#" class="detail-ticket" data-toggle="collapse" data-target='#demo{{f["id"]}}2' >detail ticket</a>
+                                    <a href="#" class="detail-flight" data-toggle="collapse" data-target='#demo{{f["id"]}}'>detail flight</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id='demo{{f["id"]}}' class="collapse">
+                        <h4 class="title-detail-flight">detail flight</h4>
+                        <p class="ticket-class">Class: Normal</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-3 time-flight text-center">
+                                        <ul>
+                                            <li class="time">
+                                                {{f["thoiDiemKhoiHanh"].time()}}
+                                                <label class="dot-flight bottom"></label>
+                                            </li>
+                                            <li class="day li-border">{{f["thoiDiemKhoiHanh"].date()}}</li>
+                                            <li class="li-border">
+                                                <br>
+                                            </li>
+                                            <li class="time li-border">
+                                                {{f["thoiDiemHaCanh"].time()}}
+                                            </li>
+                                            <li class="day">
+                                                {{f["thoiDiemHaCanh"].date()}}
+                                                <label class="dot-flight bottom"></label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-9 position-flight">
+                                        <ul>
+                                            <li class="place-from">
+                                                {{f["tinhThanhDi"]}}
+                                            </li>
+                                            <li class="shadow-text airport-name">
+                                                {{f["sanBayDi"]}}
+                                            </li>
+                                            <li class="shadow-text time">{{f["thoiGianBay"]}}</li>
+                                            <li class="place-to">
+                                                {{f["tinhThanhDen"]}}
+                                            </li>
+                                            <li class="shadow-text">
+                                                {{f["sanBayDen"]}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <ul>
+                                    <li>Planes: {{f["mayBay"]}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id='demo{{f["id"]}}2' class="collapse">
+                        <h4>detail flight</h4>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p class="title">{{f["tinhThanhDi"]}} → {{f["tinhThanhDen"]}}</p>
+                                        <p class="ticket-class">Eco (A)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p class="title">Price</p>
+                                        <p class="shadow-text">Tax fees</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="title">500000 VNĐ</p>
+                                        <p class="shadow-text">Included</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 div-last-child">
+                                <label class="line-box"></label>
+                            </div>
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p class="title">Total</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="price-total">500000 VNĐ</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    {%endfor%}
+                    {%else%}
+                    <p class="alert">There is no matching flight</p>
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+      </div>
+</section>
+  <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/jquery-3.0.0.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/plugin.js') }}"></script>
+      <!-- sidebar -->
+      <script src="{{ url_for('static', filename='js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+      <!-- javascript -->
+      <script src="{{ url_for('static', filename='js/owl.carousel.js') }}"></script>
+      <script>
+      function checkWay(way) {
+         console.log("checkWay",way);
+         if (way === "one-way") {
+            $('#return-date').attr("disabled",true)
+
+         } else {
+            $('#return-date').attr("disabled",false);
+         }
+      }
+         $(document).ready(function() {
+           var owl = $('.owl-carousel');
+           owl.owlCarousel({
+             margin: 10,
+             nav: true,
+             loop: true,
+             responsive: {
+               0: {
+                 items: 1
+               },
+               600: {
+                 items: 2
+               },
+               1000: {
+                 items: 3
+               }
+             }
+           })
+
+           $('input[name="trip"]').change(function() {
+            checkWay($(this).val());
+           })
+           checkWay($('input[name="trip"]').val())
+         })
+      </script>
+{%endblock%}

@@ -1,0 +1,17 @@
+.nice-select.form-control{
+    display: none!important;
+}
+.main-form button:hover {
+    background: #15cfe5;
+    border: solid #15cfe5 1px;
+}
+.main-form button {
+    background: #ee580f;
+    color: #fff;
+    float: left;
+    font-size: 15px;
+    font-weight: 400;
+    border: solid #ee580f 1px;
+    padding: 10px 77px;
+    margin: 57px 0px 0px 25px;
+}

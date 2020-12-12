@@ -2,7 +2,7 @@ from flask import redirect
 from app import admin, db
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.contrib.fileadmin import FileAdmin
-from app.models import SanBay, MayBay, User, ChuyenBay, KhachHang,Ghe,Ve,TuyenBay,TinhThanh
+from app.models import *
 from flask_admin import BaseView, expose
 from flask_login import current_user, logout_user
 
@@ -63,6 +63,7 @@ admin.add_view(AuthenticatedView(Ghe, db.session, name="Ghế Máy Bay"))
 admin.add_view(AuthenticatedView(Ve, db.session, name="Vé Máy Bay"))
 admin.add_view(AuthenticatedView(TuyenBay, db.session, name="Tuyến Bay"))
 admin.add_view(AuthenticatedView(TinhThanh,db.session,name="Tỉnh Thành"))
+admin.add_view(AuthenticatedView(SanBayChungChuyen,db.session,name="Sân Bay Chung Chuyển"))
 # admin.add_view(ModelView(TuyenBay, db.session, name='Tuyến Bay'))
 # # admin.add_view(ModelView(ChuyenBay, db.session, name='Chuyến Bay'))
 

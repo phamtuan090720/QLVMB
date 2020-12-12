@@ -1,16 +1,9 @@
-/*--------------------------------------------------------------------- File Name: style.css ---------------------------------------------------------------------*/
 
 
-/*--------------------------------------------------------------------- import Fonts ---------------------------------------------------------------------*/
 
 @import url('https://fonts.googleapis.com/css?family=Rajdhani:300,400,500,600,700');
 @import url('https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
 
-/*****---------------------------------------- 1) font-family: 'Rajdhani', sans-serif;
- 2) font-family: 'Poppins', sans-serif;
- ----------------------------------------*****/
-
-/*--------------------------------------------------------------------- import Files ---------------------------------------------------------------------*/
 
 @import url(animate.min.css);
 @import url(normalize.css);
@@ -22,7 +15,6 @@
 @import url(jquery-ui.css);
 @import url(nice-select.css);
 
-/*--------------------------------------------------------------------- skeleton ---------------------------------------------------------------------*/
 
 * {
      box-sizing: border-box !important;
@@ -231,9 +223,6 @@ button {
      padding: 0;
 }
 
-
-/**-- heading section --**/
-
 .main_heading {
      text-align: center;
      display: flex;
@@ -316,7 +305,7 @@ a.readmore_bt {
 }
 
 
-/**-- list icon --**/
+
 
 .ul_list_info_icon ul {
      list-style: none;
@@ -333,7 +322,6 @@ a.readmore_bt {
 }
 
 
-/*---------------------------- preloader area ----------------------------*/
 
 .loader_bg {
      position: fixed;
@@ -359,7 +347,7 @@ a.readmore_bt {
 }
 
 
-/*---------------------------- scroll to top area ----------------------------*/
+
 
 .scrollup {
      float: right;
@@ -433,7 +421,6 @@ a.readmore_bt {
 }
 
 
-/*--------------------------------------------------------------------- header area ---------------------------------------------------------------------*/
 
 .header {
      background: url(../images/header-bg.jpg);
@@ -553,7 +540,6 @@ ul.top_icon li a {
 }
 
 
-/*-- end header middle --*/
 
 .top-bar-info {
      background: #111111;
@@ -1326,7 +1312,6 @@ ul.top_icon li a {
      background: #114c7d;
 }
 
-/*--------------------------------------------------------------------- top banner area ---------------------------------------------------------------------*/
 .top-banner-slider {
      overflow: hidden;
      clear: both;
@@ -1574,7 +1559,6 @@ input[type="radio"] .styled:checked+label::after {
      color: #fff;
 }
 
-/*--------------------------------------------------------------------- layout new css ---------------------------------------------------------------------*/
 .header_information {
      background-color: #fff;
      padding: 0 0;
@@ -1697,20 +1681,7 @@ input[type="radio"] .styled:checked+label::after {
      border: #fff solid 2px;
      color: #000;
 }
-.main-form a {
-     background: #ee580f;
-     color: #fff;
-     float: left;
-     font-size: 15px;
-     font-weight: 400;
-     border: solid #ee580f 1px;
-     padding: 10px 77px;
-     margin: 57px 0px 0px 25px;
-}
-.main-form a:hover {
-     background: #15cfe5;
-     border: solid #15cfe5 1px;
-}
+
 .about {
      padding-top: 0px !important;
      padding: 90px 0px;
@@ -2267,8 +2238,9 @@ ul.location_icon span {
 .contact-page .Contact {
      margin-top: 0px;
 }
+.nice-select.form-control{
+    display: none!important;
+}
 .contact-page .form-control {
      margin-bottom: 20px;
 }
-
-/** slider arrow **/

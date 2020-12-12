@@ -45,12 +45,16 @@ class KhachHang(QLBVMB):
     def __str__(self):
         return self.tenKhachHang
 
+
 class TinhThanh(QLBVMB):
     __tablename__ = "tinhThanh"
-    tenTinhThanh=Column(String(50),nullable=False)
-    sanBay = relationship("SanBay",backref="Tỉnh Thành",lazy=True)
+    tenTinhThanh = Column(String(50), nullable=False)
+    sanBay = relationship("SanBay", backref="Tỉnh Thành", lazy=True)
+
     def __str__(self):
         return self.tenTinhThanh
+
+
 class SanBay(QLBVMB):
     __tablename__ = "sanBay"
     tenSanBay = Column(String(50), nullable=False)
@@ -58,34 +62,42 @@ class SanBay(QLBVMB):
     chuyenBay_SanBayDi = relationship("TuyenBay", backref="Sân Bay Đi", lazy=True, foreign_keys='TuyenBay.sanbayDi')
     chuyenBay_SanBayDen = relationship("TuyenBay", backref="Sân Bay Đến", lazy=True,
                                        foreign_keys='TuyenBay.sanbayDen')
-
+    sanBayChuyChuyen = relationship("SanBayChungChuyen",backref="sân bay chờ",lazy=True)
     def __str__(self):
         return self.tenSanBay
+
 
 class TuyenBay(QLBVMB):
     __tablename__ = "tuyenBay"
     sanbayDi = Column(Integer, ForeignKey(SanBay.id), nullable=False)
     sanbayDen = Column(Integer, ForeignKey(SanBay.id), nullable=False)
-    chuyenBay_TuyenBay = relationship("ChuyenBay",backref="Tuyến Bay",lazy=True)
-
-class ChuyenBay(QLBVMB):
-    __tablename__ = "chuyenBay"
-    thoiDiemKhoiHanh = Column(DateTime, nullable=False)
-    thoiGianBay = Column(Time, nullable=False)
-    # sanbayDi = Column(Integer, ForeignKey(SanBay.id), nullable=False)
-    # sanbayDen = Column(Integer, ForeignKey(SanBay.id), nullable=False)
-    tuyenBayId = Column(Integer,ForeignKey(TuyenBay.id),nullable=False)
-    ve_chuyenBay = relationship("Ve", backref="Chuyến Bay", lazy=True)
-
+    chuyenBay_TuyenBay = relationship("ChuyenBay", backref="Tuyến Bay", lazy=True)
 
 class MayBay(QLBVMB):
     __tablename__ = "mayBay"
     maMayBay = Column(String(50), nullable=False)
     gheMayBay = relationship("Ghe", backref="Máy Bay", lazy=True, foreign_keys="Ghe.mayBayId")
+    chuyenBay_mayBay = relationship("ChuyenBay",backref="Máy Bay",lazy=True)
 
     def __str__(self):
         return self.maMayBay
 
+
+class ChuyenBay(QLBVMB):
+    __tablename__ = "chuyenBay"
+    thoiDiemKhoiHanh = Column(DateTime, nullable=False)
+    thoiGianBay = Column(Time, nullable=False)
+    tuyenBayId = Column(Integer, ForeignKey(TuyenBay.id), nullable=False)
+    mayBayId = Column(Integer,ForeignKey(MayBay.id),nullable=False)
+    ve_chuyenBay = relationship("Ve", backref="Chuyến Bay", lazy=True)
+    chuyenBay_SanBayChungChuyen = relationship("SanBayChungChuyen",backref="Chuyến Bay Chờ",lazy=True)
+
+class SanBayChungChuyen(QLBVMB):
+    __tablename__ = "sanBayChungChuyen"
+    thoiGianDung = Column(Time,nullable=False)
+    ghiChu = Column(String(250))
+    chuyenBayId = Column(Integer,ForeignKey(ChuyenBay.id),nullable=False)
+    sanBayId = Column(Integer,ForeignKey(SanBay.id),nullable=False)
 
 class Ghe(QLBVMB):
     __tablename__ = "ghe"
@@ -102,12 +114,12 @@ class Ghe(QLBVMB):
 class Ve(db.Model):
     __tablename__ = "ve"
     # maVe = Column(String(50), nullable=True)
-    id = Column(Integer, ForeignKey(Ghe.id), nullable=False,primary_key=True)
+    id = Column(Integer, ForeignKey(Ghe.id), nullable=False, primary_key=True)
     ve_khachHang = Column(Integer, ForeignKey(KhachHang.id), nullable=False)
     ve_nhanvien = Column(Integer, ForeignKey(User.id), nullable=False)
     ve_chuyenbay = Column(Integer, ForeignKey(ChuyenBay.id), nullable=False)
     ngayXuatVe = Column(DateTime, default=datetime.today())
-    noiXuatVe = Column(String(50), nullable=False)
+    gia = Column(Integer)
 
 
 #
