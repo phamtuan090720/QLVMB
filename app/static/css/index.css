@@ -15,3 +15,172 @@
     padding: 10px 77px;
     margin: 57px 0px 0px 25px;
 }
+.find-fight label {
+    float: left;
+    margin-bottom: 5px;
+    margin-right: 10px;
+}
+
+*{
+   font-size: 13px;
+}
+.header{
+   margin-bottom: 83px;
+}
+.flightListContainer{
+    font-size: 14px;
+    color: #616161;
+}
+.v-margin-bottom-15{
+    margin-bottom: 15px;
+}
+.body-data-flight{
+    width: 100%;
+    margin: 0 auto;
+}
+.header-data-flight{
+    width: 100%;
+    margin-right: 0;
+    margin-left:  0;
+}
+.col-xs-12.hidden-xs{
+    width: 100%;
+}
+.col-xs-12.flight-step-header.hidden-xs.depart{
+    box-shadow: 0 0px 1px rgba(0,0,0,0.2);
+    padding: 8px 14px;
+    background-color: rgba(255,255,255,0.5);
+}
+h4.depart-name.no-margin{
+    margin-left: 10px;
+}
+.title-body-data-flight{
+    font-size: 18px;
+    font-weight: bold;
+    color: #003C71;
+    margin: 10px 10px;
+    margin-bottom: 30px;
+}
+.air-ticket{
+    border: solid 2px #e52822;
+    margin-bottom: 10px;
+}
+.air-ticket .body-ticket.row{
+    box-shadow: 0 0 8px 0 rgba(38,190,214,0.2);
+    padding: 30px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.normal{
+    color: #828282;
+    font-size: 12px;
+}
+.font-16 .time {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+}
+.font-16 .time i{
+    transform: rotate(46deg);
+    padding: 0 10px;
+    float: right;
+}
+.font-16 .flight-time{
+    font-size: 16px;
+}
+.price{
+    font-size: 20px;
+    font-weight: bold;
+}
+.air-ticket button.btn.btn-success{
+    width: 80%;
+}
+.air-ticket .tittle{
+    display: flex;
+}
+.air-ticket .tittle .detail-ticket{
+    margin-right: 30px;
+}
+.collapse{
+    width: 100%;
+    border: 2px #26bed6 solid;
+    margin-bottom: 10px;
+    padding:20px;
+}
+.row{
+    margin: 0 auto;
+}
+.time-flight{
+    padding-left: 0px;
+    padding-right: 5px;
+}
+.collapse ul{
+    list-style-type: none;
+    padding-left: 0;
+}
+.collapse ul li{
+    position: relative;
+    line-height: 24px;
+    font-size: 14px;
+}
+.time-flight .time{
+    color: #222222;
+    font-weight: 400;
+}
+.time-flight  label{
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.time-flight .bottom{
+    bottom: 0;
+}
+.time-flight .time .dot-flight{
+    position: absolute;
+    right: -4px;
+    border: 1px solid #26bed6;
+    border-radius: 50%;
+    height: 9px;
+    width: 9px;
+    margin: 0;
+}
+.time-flight .day{
+    color: #828282;
+}
+.time-flight .li-border{
+    border-right: 1px solid #26bed6;
+}
+.time-flight .day .dot-flight{
+    position: absolute;
+    right: -4px;
+    border: 1px solid #26bed6;
+    border-radius: 50%;
+    height: 9px;
+    width: 9px;
+    margin: 0;
+    top: 0;
+}
+.position-flight .shadow-text{
+    font-size: 14px;
+    color: #828282;
+}
+.shadow-text{
+    font-size: 14px;
+    color: #828282;
+}
+p.title {
+    font-size: 14px;
+}
+.div-last-child{
+    line-height: 0px;
+    width: 100%;
+}
+.line-box{
+    width: 100%;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    margin: 15px 0;
+}
+a.btn.btn-success {
+    width: 100%;
+}

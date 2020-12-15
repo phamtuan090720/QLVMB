@@ -1,7 +1,26 @@
-{% extends 'index.html' %}
+{% extends 'flight-list.html' %}
 {%block head%}
 {{ super() }}
 <link rel="stylesheet" href="{{url_for('static',filename='css//booking-seat.css')}}">
+ <style>
+.da-dat {
+    background-color: blue;
+    color : white;
+     cursor: not-allowed!important;
+}
+
+.chua-dat {
+    background-color: red;
+}
+
+.da-chon {
+    background-color: coral;
+}
+
+.da-chon:hover {
+    background-color: coral;
+}
+ </style>
 {%endblock%}
 {%block body%}
    <!-- loader  -->
@@ -60,7 +79,7 @@
          <!-- end header inner -->
       </header>
       <!-- end header -->
-<div class="container-from">
+    <div class="container-from">
         <div class="step-row">
             <div id="progress"></div>
             <div class="step-col"><small>step1</small></div>
@@ -71,7 +90,7 @@
         <form>
             <div class="container" id="form1">
                 <h1 class="title">Seat</h1>
- <div class="container">
+                    <div class="container">
                     <h3 class="text-center">vip seat diagram</h3>
                     <p class="type"><span class="color"></span>:was placed</p>
                     <p class="type"><span class="color"></span>:was placed</p>
@@ -81,11 +100,21 @@
                         <div class="col-4">
                             <table class="list-ticket">
                                 <tbody>
-                                {%for col in range(10)%}
+                                {%for col in range(col)%}
                                     <tr>
                                         <td>{{col+1}}</td>
-                                      {%for row in range(4)%}
-                                          <td><img src="{{url_for('static',filename='images/icon-seat.png')}}" alt="" class="img-fluid seat"></td>
+                                      {%for row in ticket%}
+                                        {%if utils.get_ghe_by_id(row.id).trangThai == "Đã Đặt"%}
+                                          <td><img id="myDIV{{row.id}}" src="{{url_for('static',filename='images/icon-seat.png')}}" alt="" class="img-fluid seat bg-secondary"></td>
+                                        {%else%}
+                                          <td><img id="myDIV{{row.id}}" src="{{url_for('static',filename='images/icon-seat.png')}}" alt="" class="img-fluid seat"></td>
+                                          <script>
+                                                       document.getElementById("myDIV{{row.id}}").onclick = function(){
+                                                          document.getElementById("myDIV{{row.id}}").classList.toggle("bg-danger");
+                                                          addToCart({{row.id}},'{{utils.get_ghe_by_id(row.id).maGhe}}',{{row.gia}})
+                                                       }
+                                         </script>
+                                        {%endif%}
                                         {%endfor%}
                                     </tr>
                                   {%endfor%}
@@ -132,7 +161,8 @@
 <!--                                       <option value="Vietnam">Vietnam</option>-->
                                     </select>
                                  </div>
-                                <div class="row">
+                            </div>
+                             <div class="row">
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-12">
                                         <label >Flight</label>
                                         <select class="form-control" required name="To" onchange="this.form.()">
@@ -157,34 +187,86 @@
                                     <input class="form-control" placeholder="Any" type="date" name="departure">
                                  </div>
                                 </div>
-
-                            </div>
                         </div>
                     </div>
 
                 </div>
                 <div class="payment_detail">
-                     <p class="ticket">Ticket selected:</p>
-                    <p class="price">Price:</p>
-                    <p class="total">Total:</p>
+                     <p class="ticket">Ticket selected:<span id="list-ticket"></span></p>
+                    <p >Price: <span id="price"></span></p>
+                    <p class="total">Total: <span id="amount"></span></p>
                 </div>
                 <p id="next1" class="btn btn-primary next">Next</p>
             </div>
             <div class="container" id="form2">
-                <h1 class="title">Seat</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia vel voluptate ex corrupti atque, laboriosam consequatur quod totam, odit voluptates officia magni voluptatem doloremque. Natus explicabo ea corporis veniam, saepe laborum? Atque
-                    veniam culpa illo ratione cupiditate! Obcaecati maiores saepe nobis inventore voluptates odio suscipit repellat a adipisci delectus debitis hic error illo sit doloremque asperiores, amet dignissimos perferendis assumenda voluptatem
-                    unde sapiente harum dolores! Corporis molestiae, voluptates minima illo reprehenderit commodi enim! Temporibus quod in obcaecati, voluptas asperiores, aliquid culpa consectetur ducimus, corporis a facilis rerum error fugiat voluptatum
-                    officiis laudantium voluptate magnam sapiente aperiam vitae laboriosam reprehenderit libero.</p>
+                <h1 class="title">Information</h1>
+               <div class="container">
+                   <div class="row">
+                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                             <input class="form-control" placeholder="Frist name" type="text" name="frist-name">
+                         </div>
+                       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                             <input class="form-control" placeholder="Last name" type="text" name="last-name">
+                       </div>
+                   </div>
+                   <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                             <input class="form-control" placeholder="Email.." type="email" name="email">
+                       </div>
+                       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                             <input class="form-control" placeholder="Phone..." type="tel" name="phone">
+                       </div>
+                   </div>
+                    <div class="row">
+                             <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+                             <input class="form-control" placeholder="Address..." type="text" name="address">
+                             </div>
+                           <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+                             <input class="form-control" placeholder="identity card number..." type="text" name="identity-card">
+                           </div>
+                    </div>
+                   <div class="row">
+                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+                             <label> Brithday </label>
+                             <input class="form-control" type="date" name="brithday">
+                         </div>
+                   </div>
+               </div>
                 <p class="btn btn-danger previous" id="previous2">previous</p>
                 <p class="btn btn-primary next" id="next2">Next</p>
             </div>
             <div class="container" id="form3">
-                <h1 class="title">Seat</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique laborum tempora molestias corporis voluptatibus eum repellat natus est veritatis quo! Quam molestiae repellat corrupti id odio ipsa ratione. Impedit veritatis quibusdam
-                    explicabo temporibus officiis perspiciatis deleniti ex eum amet dignissimos, velit, in asperiores aut iure recusandae, consequuntur exercitationem? Dolore exercitationem nulla fugit soluta, itaque assumenda necessitatibus officia alias
-                    laudantium facere fugiat voluptatum quae rerum ratione sint dolorum iure non magni perferendis inventore accusantium nam nisi aut? Iusto eligendi aperiam laborum id facere! Perspiciatis modi recusandae a, impedit iusto blanditiis animi
-                    dolore ab ullam pariatur necessitatibus quisquam placeat aperiam consequuntur ratione?</p>
+                <h1 class="title">List Ticket</h1>
+                <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">stt</th>
+                      <th scope="col">Chuyến Bay</th>
+                      <th scope="col">Seat</th>
+                      <th scope="col">Handle</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>Mark</td>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>Thornton</td>
+                      <td>@fat</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td>Larry</td>
+                      <td>the Bird</td>
+                      <td>@twitter</td>
+                    </tr>
+                  </tbody>
+                </table>
                 <p class="btn btn-danger previous" id="previous3">previous</p>
                 <p class="btn btn-primary next" id="next3">Next</p>
             </div>
@@ -287,4 +369,5 @@
            checkWay($('input[name="trip"]').val())
          })
       </script>
+ <script src="{{ url_for('static', filename='js/api.js') }}"></script>
 {%endblock%}

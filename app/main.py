@@ -51,9 +51,10 @@ def add_to_cart():
     id = str(data.get("id"))
     name = data.get("name")
     price = data.get("price", 0)
-
+    list_ticket = []
     if id in cart:
         del cart[id]
+        list_ticket.remove(cart[id]["name"])
     else:
         cart[id] = {
             "id": id,
@@ -61,26 +62,23 @@ def add_to_cart():
             "price": price,
             "quantity" : 1
         }
+        list_ticket.append(cart[id]["name"])
 
     session['cart'] = cart
-    print(cart)
     quantity, amount = utils.cart_stats(cart)
-
     return jsonify({
         "total_quantity": quantity,
-        "total_amount": amount
+        "total_amount": amount,
+        "list_ticket" : list_ticket,
     })
-
-@app.route("/test", methods=['GET', 'POST'])
-def test():
-    x  = get_list_ticket()
-    return render_template("test.html",utils=utils)
-
 @app.route("/book-seat")
 def book_seat():
     tinhThanh = utils.get_tinhThanh()
+    ticket = Ve.query.all()
+    len_ticket = len(ticket)
+    col = int(len_ticket/10)+1
+    return render_template("seat-book.html",tinhThanh=tinhThanh,ticket=ticket,len_ticket=len_ticket,col=col,utils=utils)
 
-    return render_template("seat-book.html",tinhThanh=tinhThanh)
 
 @app.route("/login-admin", methods=['GET', 'POST'])
 def login_admin():

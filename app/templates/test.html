@@ -31,36 +31,36 @@
 </head>
 
 <body>
-<!--    {%for i in utils.get_list_ticket()%}-->
-<!--        {%if utils.get_ghe_by_id(i.id).trangThai == "Đã Đặt"%}-->
-<!--            <button class="btn da-dat" id="myDIV{{i.id}}" disabled>-->
-<!--                {{utils.get_ghe_by_id(i.id).maGhe}}-->
-<!--            </button>-->
-<!--        {%else%}-->
-<!--            <button class="btn btn-danger" id="myDIV{{i.id}}">-->
-<!--                {{utils.get_ghe_by_id(i.id).maGhe}}-->
-<!--            </button>-->
-<!--             <script>-->
-<!--                   document.getElementById("myDIV{{i.id}}").onclick = function(){-->
-<!--                      document.getElementById("myDIV{{i.id}}").classList.toggle("da-chon");-->
-<!--                      addToCart({{i.id}},'{{utils.get_ghe_by_id(i.id).maGhe}}', {{i.gia}})-->
-<!--                    }-->
-<!--            </script>-->
-<!--        {%endif%}-->
-<!--    {%endfor%}-->
-<!--    <p id="price"></p>-->
-<!--    <p id="total"></p>-->
-    <table>
-        <tbody>
-        {%for i in range(10)%}
-            <tr>
-                {%for a in range(2)%}
-                <td><button class="btn btn-danger">A</button></td>
-                {%endfor%}
-            </tr>
-        {%endfor%}
-        </tbody>
-    </table>
+    {%for i in utils.get_list_ticket()%}
+        {%if utils.get_ghe_by_id(i.id).trangThai == "Đã Đặt"%}
+            <button class="btn da-dat" id="myDIV{{i.id}}" disabled>
+                {{utils.get_ghe_by_id(i.id).maGhe}}
+            </button>
+        {%else%}
+            <button class="btn btn-danger" id="myDIV{{i.id}}">
+                {{utils.get_ghe_by_id(i.id).maGhe}}
+            </button>
+             <script>
+                   document.getElementById("myDIV{{i.id}}").onclick = function(){
+                      document.getElementById("myDIV{{i.id}}").classList.toggle("da-chon");
+                      addToCart({{i.id}},'{{utils.get_ghe_by_id(i.id).maGhe}}', {{i.gia}})
+                    }
+            </script>
+        {%endif%}
+    {%endfor%}
+    <p id="price"></p>
+    <p id="total"></p>
+<!--    <table>-->
+<!--        <tbody>-->
+<!--        {%for i in range(10)%}-->
+<!--            <tr>-->
+<!--                {%for a in range(2)%}-->
+<!--                <td><button class="btn btn-danger">A</button></td>-->
+<!--                {%endfor%}-->
+<!--            </tr>-->
+<!--        {%endfor%}-->
+<!--        </tbody>-->
+<!--    </table>-->
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -150,7 +150,6 @@ def cart_stats(cart):
         for p in cart.values():
             total_quantity = total_quantity + p["quantity"]
             total_amount = total_amount + p["quantity"] * p["price"]
-
     return total_quantity, total_amount
 
 
@@ -158,5 +157,9 @@ def get_list_ticket():
     return Ve.query.all()
 
 
-a = MayBay.query.all()
-print(a)
+ticket = Ve.query.all()
+print(ticket)
+print(len(ticket))
+print(int(len(ticket)/10))
+for i in range(int(len(ticket)/10)+1):
+    print("a")

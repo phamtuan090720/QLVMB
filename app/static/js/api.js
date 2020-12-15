@@ -10,9 +10,13 @@ function addToCart(id, name, price) {
             'Context-Type': 'application/json'
         }
     }).then(res => res.json()).then(data => {
-        var cart = document.getElementById("price");
-        cart.innerText = `${data.total_quantity} - ${data.total_amount} VND`;
+        var price = document.getElementById("price");
+        price.innerText = `${data.total_quantity}`;
         console.info(data);
+        var amount = document.getElementById("amount");
+        amount.innerText = `${data.total_amount} VND`;
+        var list_ticket= document.getElementById("listTicket")
+        list_ticket.innerText =`${data.list_ticket}`;
     }).catch(err => {
         console.log(err);
     });
