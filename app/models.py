@@ -1,5 +1,7 @@
+# from app.utils import *
 from sqlalchemy import Column, Integer, Float, String, ForeignKey, Boolean, Date, Enum, DateTime, Time
 from sqlalchemy.orm import relationship
+
 # from app import admin
 from datetime import datetime, date
 from flask_login import UserMixin
@@ -43,7 +45,7 @@ class KhachHang(QLBVMB):
     ve_khachhang = relationship("Ve", backref="Tên Khách Hàng", lazy=True)
 
     def __str__(self):
-        return self.tenKhachHang
+        return self.CMND
 
 
 class TinhThanh(QLBVMB):
@@ -62,7 +64,8 @@ class SanBay(QLBVMB):
     chuyenBay_SanBayDi = relationship("TuyenBay", backref="Sân Bay Đi", lazy=True, foreign_keys='TuyenBay.sanbayDi')
     chuyenBay_SanBayDen = relationship("TuyenBay", backref="Sân Bay Đến", lazy=True,
                                        foreign_keys='TuyenBay.sanbayDen')
-    sanBayChuyChuyen = relationship("SanBayChungChuyen",backref="sân bay chờ",lazy=True)
+    sanBayChuyChuyen = relationship("SanBayChungChuyen", backref="sân bay chờ", lazy=True)
+
     def __str__(self):
         return self.tenSanBay
 
@@ -73,11 +76,17 @@ class TuyenBay(QLBVMB):
     sanbayDen = Column(Integer, ForeignKey(SanBay.id), nullable=False)
     chuyenBay_TuyenBay = relationship("ChuyenBay", backref="Tuyến Bay", lazy=True)
 
+    def __str__(self):
+        return SanBay.query.get(self.sanbayDi).tenSanBay + "->" + SanBay.query.get(self.sanbayDen).tenSanBay
+
+
 class MayBay(QLBVMB):
     __tablename__ = "mayBay"
     maMayBay = Column(String(50), nullable=False)
+    soGheLoai1 = Column(Integer)
+    soGheLoai2 = Column(Integer)
     gheMayBay = relationship("Ghe", backref="Máy Bay", lazy=True, foreign_keys="Ghe.mayBayId")
-    chuyenBay_mayBay = relationship("ChuyenBay",backref="Máy Bay",lazy=True)
+    chuyenBay_mayBay = relationship("ChuyenBay", backref="Máy Bay", lazy=True)
 
     def __str__(self):
         return self.maMayBay
@@ -88,38 +97,47 @@ class ChuyenBay(QLBVMB):
     thoiDiemKhoiHanh = Column(DateTime, nullable=False)
     thoiGianBay = Column(Time, nullable=False)
     tuyenBayId = Column(Integer, ForeignKey(TuyenBay.id), nullable=False)
-    mayBayId = Column(Integer,ForeignKey(MayBay.id),nullable=False)
+    mayBayId = Column(Integer, ForeignKey(MayBay.id), nullable=False)
     ve_chuyenBay = relationship("Ve", backref="Chuyến Bay", lazy=True)
-    chuyenBay_SanBayChungChuyen = relationship("SanBayChungChuyen",backref="Chuyến Bay Chờ",lazy=True)
+    chuyenBay_SanBayChungChuyen = relationship("SanBayChungChuyen", backref="Chuyến Bay Chờ", lazy=True)
+
+    def __str__(self):
+        return MayBay.query.get(self.mayBayId).maMayBay + "--" + SanBay.query.get \
+            (TuyenBay.query.get(self.tuyenBayId).sanbayDi).tenSanBay + "->" + SanBay.query.get \
+                   (TuyenBay.query.get(self.tuyenBayId).sanbayDen).tenSanBay + ":" + str(self.thoiDiemKhoiHanh) + \
+               " Time:" + str(self.thoiGianBay)
+
 
 class SanBayChungChuyen(QLBVMB):
     __tablename__ = "sanBayChungChuyen"
-    thoiGianDung = Column(Time,nullable=False)
+    thoiGianDung = Column(Time, nullable=False)
     ghiChu = Column(String(250))
-    chuyenBayId = Column(Integer,ForeignKey(ChuyenBay.id),nullable=False)
-    sanBayId = Column(Integer,ForeignKey(SanBay.id),nullable=False)
+    chuyenBayId = Column(Integer, ForeignKey(ChuyenBay.id), nullable=False)
+    sanBayId = Column(Integer, ForeignKey(SanBay.id), nullable=False)
+
 
 class Ghe(QLBVMB):
     __tablename__ = "ghe"
     maGhe = Column(String(50), nullable=False)
-    loaiGhe = Column(Enum("Vip", "Thường"), nullable=False)
+    loaiGhe = Column(Enum("Vip", "Normal"), nullable=False)
     trangThai = Column(Enum("Đã Đặt", "Chưa Đặt"), nullable=False, default="Chưa Đặt")
     mayBayId = Column(Integer, ForeignKey(MayBay.id), nullable=False)
     ve_ghe = relationship('Ve', backref='Ghế', uselist=False)
 
     def __str__(self):
-        return self.maGhe
+        return self.maGhe + ":" + self.loaiGhe + "+" + MayBay.query.get(self.mayBayId).maMayBay
 
 
 class Ve(db.Model):
     __tablename__ = "ve"
     # maVe = Column(String(50), nullable=True)
     id = Column(Integer, ForeignKey(Ghe.id), nullable=False, primary_key=True)
-    ve_khachHang = Column(Integer, ForeignKey(KhachHang.id), nullable=False)
-    ve_nhanvien = Column(Integer, ForeignKey(User.id), nullable=False)
+    ve_khachHang = Column(Integer, ForeignKey(KhachHang.id))
+    ve_nhanvien = Column(Integer, ForeignKey(User.id))
     ve_chuyenbay = Column(Integer, ForeignKey(ChuyenBay.id), nullable=False)
-    ngayXuatVe = Column(DateTime, default=datetime.today())
-    gia = Column(Integer)
+    ngayXuatVe = Column(DateTime)
+    gia = Column(Float)
+    trangThaiDat = Column(Enum("Đã Đặt", "Chưa Đặt"), default="Chưa Đặt")
 
 
 #

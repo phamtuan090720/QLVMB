@@ -248,11 +248,14 @@ p.title {
                               <div class="row">
                                  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
                                     <label >From</label>
-                                    <select class="form-control" required name="To" onchange="this.form.()">
+                                    <select class="form-control" required name="From" onchange="this.form.()">
                                            <option value="">Select a location...</option>
                                        {% for tt in tinhThanh %}
-
-                                       <option value="{{tt.id}}">{{tt.tenTinhThanh}}</option>
+                                        {%if tt.id == place_start.id %}
+                                            <option value="{{tt.id}}" selected>{{tt.tenTinhThanh}}</option>
+                                        {%else%}
+                                            <option value="{{tt.id}}">{{tt.tenTinhThanh}}</option>
+                                        {%endif%}
 <!--                                       <option value="Hong Kong">Hong Kong</option>-->
 <!--                                       <option value="India">India</option>-->
 <!--                                       <option value="Japan">Japan</option>-->
@@ -267,10 +270,14 @@ p.title {
                                  </div>
                                  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
                                     <label >To</label>
-                                    <select class="form-control" required name="From" onchange="this.form.()">
+                                    <select class="form-control" required name="To" onchange="this.form.()">
                                        <option value="">Select a destination...</option>
                                        {% for tt in tinhThanh %}
-                                          <option value="{{tt.id}}">{{tt.tenTinhThanh}}</option>-->
+                                           {%if tt.id == place_end.id %}
+                                            <option value="{{tt.id}}" selected>{{tt.tenTinhThanh}}</option>
+                                        {%else%}
+                                            <option value="{{tt.id}}">{{tt.tenTinhThanh}}</option>
+                                        {%endif%}
                                        {%endfor%}
 <!--                                       <option value="Cambodia">Cambodia</option>-->
 <!--                                       <option value="Hong Kong">Hong Kong</option>-->
@@ -334,135 +341,141 @@ p.title {
                     <p class="title-body-data-flight">Recommend the best way for you</p>
                     {%if list_fight != None%}
                     {%for f in list_fight %}
-                    <div class="air-ticket">
-                        <div class="row body-ticket">
-                            <div class="col-3">
-                                <h4 class="font-16">
-                                    <div class="time">
-                                        {{f["thoiDiemKhoiHanh"].time()}}<i class="fa fa-plane"></i>
-                                    </div>
-                                    <div class="place-to normal">{{f["tinhThanhDi"]}}</div>
-                                </h4>
-                            </div>
-                            <div class="col-3">
-                                <h4 class="font-16">
-                                    <div class="time">
-                                        {{f["thoiDiemHaCanh"].time()}}
-                                    </div>
-                                    <div class="place-from normal">{{f["tinhThanhDen"]}}</div>
-                                </h4>
-                            </div>
-                            <div class="col-3">
-                                <h4 class="font-16">
-                                    <div class="flight-time">
-                                       Time: {{f.thoiGianBay}}
-                                    </div>
-                                </h4>
-                            </div>
-                            <div class="col-3">
-                                <div class="price">
-                                    500.000 VNĐ
-                                </div>
-                                <button class="btn btn-success">Buy</button>
-                            </div>
-                            <div class="col-12">
-                                <div class="tittle">
-                                    <a href="#" class="detail-ticket" data-toggle="collapse" data-target='#demo{{f["id"]}}2' >detail ticket</a>
-                                    <a href="#" class="detail-flight" data-toggle="collapse" data-target='#demo{{f["id"]}}'>detail flight</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id='demo{{f["id"]}}' class="collapse">
-                        <h4 class="title-detail-flight">detail flight</h4>
-                        <p class="ticket-class">Class: Normal</p>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-3 time-flight text-center">
-                                        <ul>
-                                            <li class="time">
-                                                {{f["thoiDiemKhoiHanh"].time()}}
-                                                <label class="dot-flight bottom"></label>
-                                            </li>
-                                            <li class="day li-border">{{f["thoiDiemKhoiHanh"].date()}}</li>
-                                            <li class="li-border">
-                                                <br>
-                                            </li>
-                                            <li class="time li-border">
-                                                {{f["thoiDiemHaCanh"].time()}}
-                                            </li>
-                                            <li class="day">
-                                                {{f["thoiDiemHaCanh"].date()}}
-                                                <label class="dot-flight bottom"></label>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-9 position-flight">
-                                        <ul>
-                                            <li class="place-from">
-                                                {{f["tinhThanhDi"]}}
-                                            </li>
-                                            <li class="shadow-text airport-name">
-                                                {{f["sanBayDi"]}}
-                                            </li>
-                                            <li class="shadow-text time">{{f["thoiGianBay"]}}</li>
-                                            <li class="place-to">
-                                                {{f["tinhThanhDen"]}}
-                                            </li>
-                                            <li class="shadow-text">
-                                                {{f["sanBayDen"]}}
-                                            </li>
-                                        </ul>
+                        {%if isListTicketNone != True%}
+                            {%for i in utils.detail_list_ticket(utils.list_ticket_by_type(f["id"])) %}
+                                <div class="air-ticket">
+                                    <div class="row body-ticket">
+                                        <div class="col-3">
+                                            <h4 class="font-16">
+                                                <div class="time">
+                                                    {{f["thoiDiemKhoiHanh"].time()}}<i class="fa fa-plane"></i>
+                                                </div>
+                                                <div class="place-to normal">{{f["tinhThanhDi"]}}</div>
+                                            </h4>
+                                        </div>
+                                        <div class="col-3">
+                                            <h4 class="font-16">
+                                                <div class="time">
+                                                    {{f["thoiDiemHaCanh"].time()}}
+                                                </div>
+                                                <div class="place-from normal">{{f["tinhThanhDen"]}}</div>
+                                            </h4>
+                                        </div>
+                                        <div class="col-3">
+                                            <h4 class="font-16">
+                                                <div class="flight-time">
+                                                   Time: {{f.thoiGianBay}}
+                                                </div>
+                                            </h4>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="price">
+                                                {{ "{:,.0f}".format(i["gia"])}}VNĐ<span class="text-info">({{i["loaiGhe"]}})</span>
+                                            </div>
+                                            <button class="btn btn-success">Buy</button>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="tittle">
+                                                <a href="#" class="detail-ticket" data-toggle="collapse" data-target='#{{i["id"]}}detailTicket{{f["id"]}}' >detail ticket</a>
+                                                <a href="#" class="detail-flight" data-toggle="collapse" data-target='#{{i["id"]}}detailFlight{{f["id"]}}'>detail flight</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <ul>
-                                    <li>Planes: {{f["mayBay"]}}</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div id='demo{{f["id"]}}2' class="collapse">
-                        <h4>detail flight</h4>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <p class="title">{{f["tinhThanhDi"]}} → {{f["tinhThanhDen"]}}</p>
-                                        <p class="ticket-class">Eco (A)</p>
+                                <div id='{{i["id"]}}detailFlight{{f["id"]}}' class="collapse">
+                                    <h4 class="title-detail-flight">detail flight</h4>
+                                    <p class="ticket-class">Class: {{1}}</p>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-3 time-flight text-center">
+                                                    <ul>
+                                                        <li class="time">
+                                                            {{f["thoiDiemKhoiHanh"].time()}}
+                                                            <label class="dot-flight bottom"></label>
+                                                        </li>
+                                                        <li class="day li-border">{{f["thoiDiemKhoiHanh"].date()}}</li>
+                                                        <li class="li-border">
+                                                            <br>
+                                                        </li>
+                                                        <li class="time li-border">
+                                                            {{f["thoiDiemHaCanh"].time()}}
+                                                        </li>
+                                                        <li class="day">
+                                                            {{f["thoiDiemHaCanh"].date()}}
+                                                            <label class="dot-flight bottom"></label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-9 position-flight">
+                                                    <ul>
+                                                        <li class="place-from">
+                                                            {{f["tinhThanhDi"]}}
+                                                        </li>
+                                                        <li class="shadow-text airport-name">
+                                                            {{f["sanBayDi"]}}
+                                                        </li>
+                                                        <li class="shadow-text time">{{f["thoiGianBay"]}}</li>
+                                                        <li class="place-to">
+                                                            {{f["tinhThanhDen"]}}
+                                                        </li>
+                                                        <li class="shadow-text">
+                                                            {{f["sanBayDen"]}}
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <ul>
+                                                <li>Planes: {{f["mayBay"]}}</li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <p class="title">Price</p>
-                                        <p class="shadow-text">Tax fees</p>
-                                    </div>
-                                    <div class="col-6">
-                                        <p class="title">500000 VNĐ</p>
-                                        <p class="shadow-text">Included</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 div-last-child">
-                                <label class="line-box"></label>
-                            </div>
-                            <div class="col-12">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <p class="title">Total</p>
-                                    </div>
-                                    <div class="col-6">
-                                        <p class="price-total">500000 VNĐ</p>
-                                    </div>
-                                </div>
+                                <div id='{{i["id"]}}detailTicket{{f["id"]}}' class="collapse">
+                                    <h4>detail flight</h4>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <p class="title">{{f["tinhThanhDi"]}} → {{f["tinhThanhDen"]}}</p>
+                                                    <p class="ticket-class">{{i["loaiGhe"]}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <p class="title">Price</p>
+                                                    <p class="shadow-text">Tax fees</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <p class="title">{{i["gia"]}} VNĐ</p>
+                                                    <p class="shadow-text">Included</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 div-last-child">
+                                            <label class="line-box"></label>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <p class="title">Total</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <p class="price-total">{{i["gia"]}}VNĐ</p>
+                                                </div>
+                                            </div>
 
-                            </div>
-                        </div>
-                    </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {%endfor%}
+                        {%else%}
+                         <p class="alert">There is no matching flight</p>
+                        {%endif%}
                     {%endfor%}
                     {%else%}
                     <p class="alert">There is no matching flight</p>

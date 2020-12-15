@@ -1,0 +1,290 @@
+{% extends 'index.html' %}
+{%block head%}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css//booking-seat.css')}}">
+{%endblock%}
+{%block body%}
+   <!-- loader  -->
+      <div class="loader_bg">
+         <div class="loader"><img src="{{ url_for('static', filename='images/loading.gif') }}" alt="#" /></div>
+      </div>
+
+      <!-- end loader -->
+      <!-- header -->
+        <header>
+         <!-- header inner -->
+         <div class="header">
+            <div class="header_white_section">
+               <div class="container-fluid">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <div class="header_information">
+                           <ul>
+                              <li><img src="{{ url_for('static', filename='images/1.png') }}" alt="#"/> 371 Nguyễn Kiệm Street </li>
+                              <li><img src="{{ url_for('static', filename='images/2.png') }}" alt="#"/> +03568181998</li>
+                              <li><img src="{{ url_for('static', filename='images/3.png') }}" alt="#"/> nguyenleanhtuan2708@gmail.com</li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="container">
+               <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                     <div class="full">
+                        <div class="center-desk">
+                           <div class="logo"><a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="#"></a> </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                     <div class="menu-area">
+                        <div class="limit-box">
+                           <nav class="main-menu">
+                              <ul class="menu-area-main">
+                                 <li class="active"> <a href="{{ url_for('index') }}">Home</a> </li>
+                                 <li> <a href="#about">About</a> </li>
+                                 <li><a href="#travel">Travel</a></li>
+                                 <li><a href="#blog">Blog</a></li>
+                                 <li><a href="#contact">Contact Us</a></li>
+                                 <li><a href="#contact">Login</a></li>
+                              </ul>
+                           </nav>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- end header inner -->
+      </header>
+      <!-- end header -->
+<div class="container-from">
+        <div class="step-row">
+            <div id="progress"></div>
+            <div class="step-col"><small>step1</small></div>
+            <div class="step-col"><small>step2</small></div>
+            <div class="step-col"><small>step3</small></div>
+            <div class="step-col"><small>step4</small></div>
+        </div>
+        <form>
+            <div class="container" id="form1">
+                <h1 class="title">Seat</h1>
+ <div class="container">
+                    <h3 class="text-center">vip seat diagram</h3>
+                    <p class="type"><span class="color"></span>:was placed</p>
+                    <p class="type"><span class="color"></span>:was placed</p>
+                    <p class="type"><span class="color"></span>:was placed</p>
+                    <p>select flight departure</p>
+                    <div class="row">
+                        <div class="col-4">
+                            <table class="list-ticket">
+                                <tbody>
+                                {%for col in range(10)%}
+                                    <tr>
+                                        <td>{{col+1}}</td>
+                                      {%for row in range(4)%}
+                                          <td><img src="{{url_for('static',filename='images/icon-seat.png')}}" alt="" class="img-fluid seat"></td>
+                                        {%endfor%}
+                                    </tr>
+                                  {%endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-8">
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <label >From</label>
+                                    <select class="form-control" required name="From" onchange="this.form.()">
+                                           <option value="">Select a location...</option>
+                                       {% for tt in tinhThanh %}
+
+                                       <option value="{{tt.id}}">{{tt.tenTinhThanh}}</option>
+<!--                                       <option value="Hong Kong">Hong Kong</option>-->
+<!--                                       <option value="India">India</option>-->
+<!--                                       <option value="Japan">Japan</option>-->
+<!--                                       <option value="Korea">Korea</option>-->
+<!--                                       <option value="Laos">Laos</option>-->
+<!--                                       <option value="Myanmar">Myanmar</option>-->
+<!--                                       <option value="Singapore">Singapore</option>-->
+<!--                                       <option value="Thailand">Thailand</option>-->
+<!--                                       <option value="Vietnam">Vietnam</option>-->
+                                       {% endfor %}
+                                    </select>
+                                 </div>
+                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <label >To</label>
+                                    <select class="form-control" required name="To" onchange="this.form.()">
+                                       <option value="">Select a destination...</option>
+                                       {% for tt in tinhThanh %}
+                                          <option value="{{tt.id}}">{{tt.tenTinhThanh}}</option>-->
+                                       {%endfor%}
+<!--                                       <option value="Cambodia">Cambodia</option>-->
+<!--                                       <option value="Hong Kong">Hong Kong</option>-->
+<!--                                       <option value="India">India</option>-->
+<!--                                       <option value="Japan">Japan</option>-->
+<!--                                       <option value="Korea">Korea</option>-->
+<!--                                       <option value="Laos">Laos</option>-->
+<!--                                       <option value="Myanmar">Myanmar</option>-->
+<!--                                       <option value="Singapore">Singapore</option>-->
+<!--                                       <option value="Thailand">Thailand</option>-->
+<!--                                       <option value="Vietnam">Vietnam</option>-->
+                                    </select>
+                                 </div>
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                        <label >Flight</label>
+                                        <select class="form-control" required name="To" onchange="this.form.()">
+                                           <option value="">Select a destination...</option>
+                                           {% for tt in tinhThanh %}
+                                              <option value="{{tt.id}}">{{tt.tenTinhThanh}}</option>-->
+                                           {%endfor%}
+    <!--                                       <option value="Cambodia">Cambodia</option>-->
+    <!--                                       <option value="Hong Kong">Hong Kong</option>-->
+    <!--                                       <option value="India">India</option>-->
+    <!--                                       <option value="Japan">Japan</option>-->
+    <!--                                       <option value="Korea">Korea</option>-->
+    <!--                                       <option value="Laos">Laos</option>-->
+    <!--                                       <option value="Myanmar">Myanmar</option>-->
+    <!--                                       <option value="Singapore">Singapore</option>-->
+    <!--                                       <option value="Thailand">Thailand</option>-->
+    <!--                                       <option value="Vietnam">Vietnam</option>-->
+                                        </select>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <label >Departure date:</label>
+                                    <input class="form-control" placeholder="Any" type="date" name="departure">
+                                 </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="payment_detail">
+                     <p class="ticket">Ticket selected:</p>
+                    <p class="price">Price:</p>
+                    <p class="total">Total:</p>
+                </div>
+                <p id="next1" class="btn btn-primary next">Next</p>
+            </div>
+            <div class="container" id="form2">
+                <h1 class="title">Seat</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia vel voluptate ex corrupti atque, laboriosam consequatur quod totam, odit voluptates officia magni voluptatem doloremque. Natus explicabo ea corporis veniam, saepe laborum? Atque
+                    veniam culpa illo ratione cupiditate! Obcaecati maiores saepe nobis inventore voluptates odio suscipit repellat a adipisci delectus debitis hic error illo sit doloremque asperiores, amet dignissimos perferendis assumenda voluptatem
+                    unde sapiente harum dolores! Corporis molestiae, voluptates minima illo reprehenderit commodi enim! Temporibus quod in obcaecati, voluptas asperiores, aliquid culpa consectetur ducimus, corporis a facilis rerum error fugiat voluptatum
+                    officiis laudantium voluptate magnam sapiente aperiam vitae laboriosam reprehenderit libero.</p>
+                <p class="btn btn-danger previous" id="previous2">previous</p>
+                <p class="btn btn-primary next" id="next2">Next</p>
+            </div>
+            <div class="container" id="form3">
+                <h1 class="title">Seat</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique laborum tempora molestias corporis voluptatibus eum repellat natus est veritatis quo! Quam molestiae repellat corrupti id odio ipsa ratione. Impedit veritatis quibusdam
+                    explicabo temporibus officiis perspiciatis deleniti ex eum amet dignissimos, velit, in asperiores aut iure recusandae, consequuntur exercitationem? Dolore exercitationem nulla fugit soluta, itaque assumenda necessitatibus officia alias
+                    laudantium facere fugiat voluptatum quae rerum ratione sint dolorum iure non magni perferendis inventore accusantium nam nisi aut? Iusto eligendi aperiam laborum id facere! Perspiciatis modi recusandae a, impedit iusto blanditiis animi
+                    dolore ab ullam pariatur necessitatibus quisquam placeat aperiam consequuntur ratione?</p>
+                <p class="btn btn-danger previous" id="previous3">previous</p>
+                <p class="btn btn-primary next" id="next3">Next</p>
+            </div>
+            <div class="container" id="form4">
+                <h1 class="title">Seat</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias aliquid cum ipsum veniam dolor quas est totam earum vitae libero, at sapiente architecto mollitia veritatis voluptatem amet modi? Cum, repellat in tempore quisquam placeat,
+                    a est alias adipisci asperiores vero quos blanditiis nihil provident sint reprehenderit quis ab voluptas officiis. Et voluptatibus omnis ipsum quod, aut, veniam perspiciatis minima, qui exercitationem numquam eum animi ullam dolore?
+                    Sint quibusdam accusantium, cumque minus in deleniti neque modi inventore incidunt harum reprehenderit deserunt molestiae molestias quidem hic aut dolor quas labore repudiandae quae. Impedit magnam repellat voluptates incidunt officiis
+                    at harum temporibus voluptatum?</p>
+                <p class="btn btn-danger previous" id="previous4">previous</p>
+                <button type="submit" class="btn btn-success submit">submit</button>
+            </div>
+        </form>
+    </div>
+<script>
+        var From1 = document.getElementById("form1")
+        var From2 = document.getElementById("form2")
+        var From3 = document.getElementById("form3")
+        var From4 = document.getElementById("form4")
+        var Next1 = document.getElementById("next1")
+        var Next2 = document.getElementById("next2")
+        var Next3 = document.getElementById("next3")
+        var Previous2 = document.getElementById("previous2")
+        var Previous3 = document.getElementById("previous3")
+        var Previous4 = document.getElementById("previous4")
+        Next1.onclick = function() {
+            From1.style.left = "-800px"
+            From2.style.left = "0px"
+            document.getElementById("progress").style.width = '50%';
+        }
+        Previous2.onclick = function() {
+            From2.style.left = "-800px"
+            From1.style.left = "0px"
+            document.getElementById("progress").style.width = '25%';
+        }
+        Next2.onclick = function() {
+            From2.style.left = "-800px"
+            From3.style.left = "0px"
+            document.getElementById("progress").style.width = '75%';
+        }
+        Previous3.onclick = function() {
+            From3.style.left = "-800px"
+            From2.style.left = "0px"
+            document.getElementById("progress").style.width = '50%';
+        }
+        Next3.onclick = function() {
+            From3.style.left = "-800px"
+            From4.style.left = "0px"
+            document.getElementById("progress").style.width = '100%';
+        }
+        Previous4.onclick = function() {
+            From4.style.left = "-800px"
+            From3.style.left = "0px"
+            document.getElementById("progress").style.width = '75%';
+        }
+    </script>
+ <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/jquery-3.0.0.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/plugin.js') }}"></script>
+      <!-- sidebar -->
+      <script src="{{ url_for('static', filename='js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+      <!-- javascript -->
+      <script src="{{ url_for('static', filename='js/owl.carousel.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/api.js') }}"></script>
+      <script>
+      function checkWay(way) {
+         console.log("checkWay",way);
+         if (way === "one-way") {
+            $('#return-date').attr("disabled",true)
+
+         } else {
+            $('#return-date').attr("disabled",false);
+         }
+      }
+         $(document).ready(function() {
+           var owl = $('.owl-carousel');
+           owl.owlCarousel({
+             margin: 10,
+             nav: true,
+             loop: true,
+             responsive: {
+               0: {
+                 items: 1
+               },
+               600: {
+                 items: 2
+               },
+               1000: {
+                 items: 3
+               }
+             }
+           })
+
+           $('input[name="trip"]').change(function() {
+            checkWay($(this).val());
+           })
+           checkWay($('input[name="trip"]').val())
+         })
+      </script>
+{%endblock%}

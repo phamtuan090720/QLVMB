@@ -39,6 +39,14 @@ class ContactView(BaseView):
     def is_accessible(self):
         return current_user.is_authenticated
 
+class SearchFlight(BaseView):
+    @expose('/',methods=['POST','GET'])
+    def index(self):
+        return self.render('admin/flight-list.html')
+
+    def is_accessible(self):
+        return current_user.is_authenticated
+
 
 class LogoutView(BaseView):
     @expose('/')
@@ -66,6 +74,7 @@ admin.add_view(AuthenticatedView(TinhThanh,db.session,name="Tỉnh Thành"))
 admin.add_view(AuthenticatedView(SanBayChungChuyen,db.session,name="Sân Bay Chung Chuyển"))
 # admin.add_view(ModelView(TuyenBay, db.session, name='Tuyến Bay'))
 # # admin.add_view(ModelView(ChuyenBay, db.session, name='Chuyến Bay'))
-
+admin.add_view(SearchFlight(name="Tra Cứu Chuyến Bay"))
 admin.add_view(ContactView(name='Liên hệ'))
 admin.add_view(LogoutView(name="Đăng xuất"))
+

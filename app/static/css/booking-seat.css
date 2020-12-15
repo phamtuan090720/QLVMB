@@ -1,0 +1,208 @@
+ body {
+            position: relative;
+        }
+
+        .container-from {
+            height: 700px;
+            background-color: white;
+            width: 800px;
+            margin: 50px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        form .title {
+            text-align: center;
+        }
+
+        form .container {
+            transition: all 0.5s;
+        }
+
+        form button {
+            width: 150px;
+            line-height: 30px;
+            margin: 0 auto;
+            border-radius: 30px;
+            outline: none;
+            display: block;
+            position: absolute;
+        }
+
+        .next {
+            bottom: 60px;
+            right: 50px;
+            width: 150px;
+            line-height: 30px;
+            margin: 0 auto;
+            border-radius: 30px;
+            outline: none;
+            display: block;
+            position: absolute;
+        }
+
+        .previous {
+            bottom: 60px;
+            left: 50px;
+            width: 150px;
+            line-height: 30px;
+            margin: 0 auto;
+            border-radius: 30px;
+            outline: none;
+            display: block;
+            position: absolute;
+        }
+
+        .submit {
+            bottom: 60px;
+            right: 50px;
+            width: 150px;
+            line-height: 30px;
+            margin: 0 auto;
+            border-radius: 30px;
+            outline: none;
+            display: block;
+            position: absolute;
+        }
+
+        #form1 .next {
+            position: absolute;
+            bottom: 60px;
+            left: 30%;
+            transform: translateX(-50%);
+        }
+
+        #form1 {
+            position: relative;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        #form3 {
+            position: relative;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 800px;
+        }
+
+        #form2 {
+            position: relative;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 800px;
+        }
+
+        #form4 {
+            position: relative;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 800px;
+        }
+
+        #form4 .next {
+            bottom: 25px;
+            left: 50px;
+        }
+
+        .step-row {
+            display: flex;
+            width: 100%;
+            height: 40px;
+            align-items: center;
+            box-shadow: 0 -1px 5px -1px #000;
+            position: relative;
+        }
+
+        .step-col {
+            width: 25%;
+            text-align: center;
+            color: black;
+            font-weight: 600;
+            position: relative;
+        }
+
+        #progress {
+            position: absolute;
+            height: 100%;
+            width: 25%;
+            background: linear-gradient(to right, #0094cc, #82f7ff)
+        }
+
+        #progress::after {
+            content: "";
+            height: 0;
+            width: 0;
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid transparent;
+            position: absolute;
+            right: -20px;
+            top: 0;
+            border-left: 20px solid #82f7ff;
+        }
+
+        .seat {
+            color: blue;
+            width: 25px;
+            height: 25px;
+            margin: 10px;
+        }
+
+        .list-ticket {
+            max-height: 450px;
+            width: 100%;
+            margin-top: 20px;
+            display: block;
+            height: 240px;
+        }
+
+        .list-ticket tbody {
+            max-height: 240px;
+            display: block;
+            overflow-x: hidden;
+            width:100%
+        }
+
+        tbody tr td {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        thead th {
+            text-align: center;
+        }
+
+        #form1 .type {
+            display: inline-block;
+            font-size: 12px;
+        }
+
+        #form1 span.color {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: blue;
+        }
+
+        .list-ticket tbody td {
+            position: relative;
+        }
+
+        .list-ticket tbody td img {
+            position: relative;
+        }
+
+        .list-ticket tbody .name-seat {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 14px;
+            font-size: 9px;
+            left: 0;
+        }
+        .payment_detail{
+            margin-top: 50px;
+        }
