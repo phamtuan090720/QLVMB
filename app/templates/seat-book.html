@@ -2,25 +2,16 @@
 {%block head%}
 {{ super() }}
 <link rel="stylesheet" href="{{url_for('static',filename='css//booking-seat.css')}}">
- <style>
-.da-dat {
-    background-color: blue;
-    color : white;
-     cursor: not-allowed!important;
+<style>
+#form1 span.color {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border: 1px solid black;
+    margin-right: 10px;
 }
-
-.chua-dat {
-    background-color: red;
-}
-
-.da-chon {
-    background-color: coral;
-}
-
-.da-chon:hover {
-    background-color: coral;
-}
- </style>
+</style>
 {%endblock%}
 {%block body%}
    <!-- loader  -->
@@ -87,31 +78,31 @@
             <div class="step-col"><small>step3</small></div>
             <div class="step-col"><small>step4</small></div>
         </div>
-        <form>
+        <div class="alert alert-success" style="display:none;">OK</div>
             <div class="container" id="form1">
                 <h1 class="title">Seat</h1>
                     <div class="container">
-                    <h3 class="text-center">vip seat diagram</h3>
-                    <p class="type"><span class="color"></span>:was placed</p>
-                    <p class="type"><span class="color"></span>:was placed</p>
-                    <p class="type"><span class="color"></span>:was placed</p>
+                    <h3 class="text-center">{{type}} seat diagram</h3>
+                    <p class="type"><span class="color bg-secondary"></span>:was placed</p>
+                    <p class="type"><span class="color bg-danger"></span>:selected</p>
+                    <p class="type"><span class="color"></span>:Not selected yet</p>
                     <p>select flight departure</p>
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-8">
                             <table class="list-ticket">
                                 <tbody>
-                                {%for col in range(col)%}
+                                {%for r in range(row)%}
                                     <tr>
-                                        <td>{{col+1}}</td>
-                                      {%for row in ticket%}
-                                        {%if utils.get_ghe_by_id(row.id).trangThai == "Đã Đặt"%}
-                                          <td><img id="myDIV{{row.id}}" src="{{url_for('static',filename='images/icon-seat.png')}}" alt="" class="img-fluid seat bg-secondary"></td>
+                                        <td>{{r+1}}</td>
+                                      {%for c in range(col)%}
+                                        {%if utils.get_ghe_by_id(mapTicket[r][c].id).trangThai == "Đã Đặt"%}
+                                          <td><img id="myDIV{{mapTicket[r][c].id}}" src="{{url_for('static',filename='images/icon-seat.png')}}" alt="" class="img-fluid seat bg-secondary"></td>
                                         {%else%}
-                                          <td><img id="myDIV{{row.id}}" src="{{url_for('static',filename='images/icon-seat.png')}}" alt="" class="img-fluid seat"></td>
+                                          <td><img id="myDIV{{mapTicket[r][c].id}}" src="{{url_for('static',filename='images/icon-seat.png')}}" alt="" class="img-fluid seat"></td>
                                           <script>
-                                                       document.getElementById("myDIV{{row.id}}").onclick = function(){
-                                                          document.getElementById("myDIV{{row.id}}").classList.toggle("bg-danger");
-                                                          addToCart({{row.id}},'{{utils.get_ghe_by_id(row.id).maGhe}}',{{row.gia}})
+                                                       document.getElementById("myDIV{{mapTicket[r][c].id}}").onclick = function(){
+                                                          document.getElementById("myDIV{{mapTicket[r][c].id}}").classList.toggle("bg-danger");
+                                                          addToCart({{mapTicket[r][c].id}},'{{utils.get_ghe_by_id(mapTicket[r][c].id).maGhe}}',{{mapTicket[r][c].gia}})
                                                        }
                                          </script>
                                         {%endif%}
@@ -121,165 +112,79 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="col-8">
-                            <div class="row">
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <label >From</label>
-                                    <select class="form-control" required name="From" onchange="this.form.()">
-                                           <option value="">Select a location...</option>
-                                       {% for tt in tinhThanh %}
-
-                                       <option value="{{tt.id}}">{{tt.tenTinhThanh}}</option>
-<!--                                       <option value="Hong Kong">Hong Kong</option>-->
-<!--                                       <option value="India">India</option>-->
-<!--                                       <option value="Japan">Japan</option>-->
-<!--                                       <option value="Korea">Korea</option>-->
-<!--                                       <option value="Laos">Laos</option>-->
-<!--                                       <option value="Myanmar">Myanmar</option>-->
-<!--                                       <option value="Singapore">Singapore</option>-->
-<!--                                       <option value="Thailand">Thailand</option>-->
-<!--                                       <option value="Vietnam">Vietnam</option>-->
-                                       {% endfor %}
-                                    </select>
-                                 </div>
-                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <label >To</label>
-                                    <select class="form-control" required name="To" onchange="this.form.()">
-                                       <option value="">Select a destination...</option>
-                                       {% for tt in tinhThanh %}
-                                          <option value="{{tt.id}}">{{tt.tenTinhThanh}}</option>-->
-                                       {%endfor%}
-<!--                                       <option value="Cambodia">Cambodia</option>-->
-<!--                                       <option value="Hong Kong">Hong Kong</option>-->
-<!--                                       <option value="India">India</option>-->
-<!--                                       <option value="Japan">Japan</option>-->
-<!--                                       <option value="Korea">Korea</option>-->
-<!--                                       <option value="Laos">Laos</option>-->
-<!--                                       <option value="Myanmar">Myanmar</option>-->
-<!--                                       <option value="Singapore">Singapore</option>-->
-<!--                                       <option value="Thailand">Thailand</option>-->
-<!--                                       <option value="Vietnam">Vietnam</option>-->
-                                    </select>
-                                 </div>
-                            </div>
-                             <div class="row">
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-12">
-                                        <label >Flight</label>
-                                        <select class="form-control" required name="To" onchange="this.form.()">
-                                           <option value="">Select a destination...</option>
-                                           {% for tt in tinhThanh %}
-                                              <option value="{{tt.id}}">{{tt.tenTinhThanh}}</option>-->
-                                           {%endfor%}
-    <!--                                       <option value="Cambodia">Cambodia</option>-->
-    <!--                                       <option value="Hong Kong">Hong Kong</option>-->
-    <!--                                       <option value="India">India</option>-->
-    <!--                                       <option value="Japan">Japan</option>-->
-    <!--                                       <option value="Korea">Korea</option>-->
-    <!--                                       <option value="Laos">Laos</option>-->
-    <!--                                       <option value="Myanmar">Myanmar</option>-->
-    <!--                                       <option value="Singapore">Singapore</option>-->
-    <!--                                       <option value="Thailand">Thailand</option>-->
-    <!--                                       <option value="Vietnam">Vietnam</option>-->
-                                        </select>
-                                    </div>
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <label >Departure date:</label>
-                                    <input class="form-control" placeholder="Any" type="date" name="departure">
-                                 </div>
-                                </div>
-                        </div>
                     </div>
 
                 </div>
                 <div class="payment_detail">
-                     <p class="ticket">Ticket selected:<span id="list-ticket"></span></p>
-                    <p >Price: <span id="price"></span></p>
+                     <p class="ticket">Ticket selected:<span id="list_ticket"></span></p>
+                    <p >Price: <span id="price">{{price}}</span></p>
                     <p class="total">Total: <span id="amount"></span></p>
                 </div>
                 <p id="next1" class="btn btn-primary next">Next</p>
             </div>
             <div class="container" id="form2">
+                 <h1 class="title">List Ticket</h1>
+                <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">stt</th>
+                      <th scope="col">Flight</th>
+                      <th scope="col">Seat</th>
+                    </tr>
+                  </thead>
+                  <tbody id = "listTicket">
+                  </tbody>
+                </table>
+                <p class="btn btn-danger previous" id="previous2">previous</p>
+                <p class="btn btn-primary next" id="next2">Next</p>
+            </div>
+            <div class="container" id="form3">
+
+                <p class="btn btn-danger previous" id="previous3">previous</p>
+                <p class="btn btn-primary next" id="next3">Next</p>
+            </div>
+            <div class="container" id="form4">
                 <h1 class="title">Information</h1>
                <div class="container">
                    <div class="row">
                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                             <input class="form-control" placeholder="Frist name" type="text" name="frist-name">
+                             <input class="form-control" placeholder="Frist name" type="text" name="frist-name" id="frist-name">
                          </div>
                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                             <input class="form-control" placeholder="Last name" type="text" name="last-name">
+                             <input class="form-control" placeholder="Last name" type="text" name="last-name" id="last-name">
                        </div>
                    </div>
                    <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                             <input class="form-control" placeholder="Email.." type="email" name="email">
+                             <input class="form-control" placeholder="Email.." type="email" name="email" id="email">
                        </div>
                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                             <input class="form-control" placeholder="Phone..." type="tel" name="phone">
+                             <input class="form-control" placeholder="Phone..." type="tel" name="phone" id="phone">
                        </div>
                    </div>
                     <div class="row">
                              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
-                             <input class="form-control" placeholder="Address..." type="text" name="address">
+                             <input class="form-control" placeholder="Address..." type="text" name="address" id="address">
                              </div>
                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
-                             <input class="form-control" placeholder="identity card number..." type="text" name="identity-card">
+                             <input class="form-control" placeholder="identity card number..." type="text" name="identity-card" id="identity-card">
                            </div>
                     </div>
                    <div class="row">
                          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
                              <label> Brithday </label>
-                             <input class="form-control" type="date" name="brithday">
+                             <input class="form-control" type="date" name="brithday" id="brithday">
                          </div>
                    </div>
+                   <div class="row">
+                       <div class="col-12">
+                           <span class="alert alert-danger" id="noti" style="display:none;">test</span>
+                       </div>
+                   </div>
                </div>
-                <p class="btn btn-danger previous" id="previous2">previous</p>
-                <p class="btn btn-primary next" id="next2">Next</p>
-            </div>
-            <div class="container" id="form3">
-                <h1 class="title">List Ticket</h1>
-                <table class="table">
-                  <thead class="thead-dark">
-                    <tr>
-                      <th scope="col">stt</th>
-                      <th scope="col">Chuyến Bay</th>
-                      <th scope="col">Seat</th>
-                      <th scope="col">Handle</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>Mark</td>
-                      <td>Otto</td>
-                      <td>@mdo</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Jacob</td>
-                      <td>Thornton</td>
-                      <td>@fat</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>Larry</td>
-                      <td>the Bird</td>
-                      <td>@twitter</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <p class="btn btn-danger previous" id="previous3">previous</p>
-                <p class="btn btn-primary next" id="next3">Next</p>
-            </div>
-            <div class="container" id="form4">
-                <h1 class="title">Seat</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias aliquid cum ipsum veniam dolor quas est totam earum vitae libero, at sapiente architecto mollitia veritatis voluptatem amet modi? Cum, repellat in tempore quisquam placeat,
-                    a est alias adipisci asperiores vero quos blanditiis nihil provident sint reprehenderit quis ab voluptas officiis. Et voluptatibus omnis ipsum quod, aut, veniam perspiciatis minima, qui exercitationem numquam eum animi ullam dolore?
-                    Sint quibusdam accusantium, cumque minus in deleniti neque modi inventore incidunt harum reprehenderit deserunt molestiae molestias quidem hic aut dolor quas labore repudiandae quae. Impedit magnam repellat voluptates incidunt officiis
-                    at harum temporibus voluptatum?</p>
                 <p class="btn btn-danger previous" id="previous4">previous</p>
-                <button type="submit" class="btn btn-success submit">submit</button>
+                <button type="submit" class="btn btn-success submit" id="book" onclick="book()">Book</button>
             </div>
-        </form>
     </div>
 <script>
         var From1 = document.getElementById("form1")
@@ -370,4 +275,5 @@
          })
       </script>
  <script src="{{ url_for('static', filename='js/api.js') }}"></script>
+<script src="{{ url_for('static', filename='js/Validation.js') }}"></script>
 {%endblock%}

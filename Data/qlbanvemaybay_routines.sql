@@ -16,14 +16,8 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `tinhthanh`
+-- Dumping routines for database 'qlbanvemaybay'
 --
-
-LOCK TABLES `tinhthanh` WRITE;
-/*!40000 ALTER TABLE `tinhthanh` DISABLE KEYS */;
-INSERT INTO `tinhthanh` VALUES (1,'Thành phố Hồ Chí Minh'),(2,'Hà Nội'),(3,'Hải Phòng'),(4,'Đà Nẵng'),(5,'Lâm Đồng'),(6,'Kiên Giang'),(7,'Khánh Hòa'),(8,'Thừa Thiên – Huế'),(9,'Nghệ An'),(10,'Cần Thơ');
-/*!40000 ALTER TABLE `tinhthanh` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -34,4 +28,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-15 17:32:21
+-- Dump completed on 2020-12-18 23:01:13

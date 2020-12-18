@@ -16,12 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `sanbaychungchuyen`
+-- Dumping data for table `user`
 --
 
-LOCK TABLES `sanbaychungchuyen` WRITE;
-/*!40000 ALTER TABLE `sanbaychungchuyen` DISABLE KEYS */;
-/*!40000 ALTER TABLE `sanbaychungchuyen` ENABLE KEYS */;
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'Tuân',1,'admin','5aee410122e9d1d76f194496cb2f90de','1','1','ADMIN');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -33,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-15 17:32:21
+-- Dump completed on 2020-12-18 23:01:12

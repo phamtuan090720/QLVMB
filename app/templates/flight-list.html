@@ -89,15 +89,6 @@
                                         {%else%}
                                             <option value="{{tt.id}}">{{tt.tenTinhThanh}}</option>
                                         {%endif%}
-<!--                                       <option value="Hong Kong">Hong Kong</option>-->
-<!--                                       <option value="India">India</option>-->
-<!--                                       <option value="Japan">Japan</option>-->
-<!--                                       <option value="Korea">Korea</option>-->
-<!--                                       <option value="Laos">Laos</option>-->
-<!--                                       <option value="Myanmar">Myanmar</option>-->
-<!--                                       <option value="Singapore">Singapore</option>-->
-<!--                                       <option value="Thailand">Thailand</option>-->
-<!--                                       <option value="Vietnam">Vietnam</option>-->
                                        {% endfor %}
                                     </select>
                                  </div>
@@ -112,16 +103,6 @@
                                             <option value="{{tt.id}}">{{tt.tenTinhThanh}}</option>
                                         {%endif%}
                                        {%endfor%}
-<!--                                       <option value="Cambodia">Cambodia</option>-->
-<!--                                       <option value="Hong Kong">Hong Kong</option>-->
-<!--                                       <option value="India">India</option>-->
-<!--                                       <option value="Japan">Japan</option>-->
-<!--                                       <option value="Korea">Korea</option>-->
-<!--                                       <option value="Laos">Laos</option>-->
-<!--                                       <option value="Myanmar">Myanmar</option>-->
-<!--                                       <option value="Singapore">Singapore</option>-->
-<!--                                       <option value="Thailand">Thailand</option>-->
-<!--                                       <option value="Vietnam">Vietnam</option>-->
                                     </select>
                                  </div>
                                  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
@@ -203,9 +184,9 @@
                                         </div>
                                         <div class="col-3">
                                             <div class="price">
-                                                {{ "{:,.0f}".format(i["gia"])}}VNĐ<span class="text-info">({{i["loaiGhe"]}})</span>
+                                                {{ "{:,.0f}".format(i["gia"])}}$<span class="text-info">({{i["loaiGhe"]}})</span>
                                             </div>
-                                            <a href="{{ url_for('book_seat') }}" class="btn btn-success">Buy</a>
+                                            <a href="{{ url_for('book_seat', flight_id=f['id'],price=i['gia'], type=i['loaiGhe'] , plane = f['id_flight']) }}" class="btn btn-success">Buy</a>
                                         </div>
                                         <div class="col-12">
                                             <div class="tittle">

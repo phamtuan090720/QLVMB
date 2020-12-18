@@ -6,7 +6,7 @@ from flask_login import login_user
 from datetime import date, datetime, timedelta, time
 import hashlib,json
 
-from app.utils import get_list_ticket
+from app.utils import get_list_ticket, list_ticket_in_cart, add_KhachHang
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -18,7 +18,7 @@ def index():
     place_start = utils.get_tinhThanh_by_id(request.form.get('From'))
     place_end = utils.get_tinhThanh_by_id(request.form.get('To'))
     date_time_depart = request.form.get('departure')
-    fight = utils.read_data_fight(request.form.get('From'),request.form.get('To'))
+    fight = utils.read_data_fight(place_start=request.form.get('From'),place_end=request.form.get('To'))
     isListTicketNone = True
     if fight:
         list_fight = utils.fight_detail_list(fight)
@@ -36,6 +36,7 @@ def index():
                            date_time_depart=date_time_depart,list_fight=list_fight,utils=utils,isListTicketNone=isListTicketNone)
 
 
+
 @login.user_loader
 def user_load(user_id):
     return utils.get_user_by_id(user_id=user_id)
@@ -51,10 +52,8 @@ def add_to_cart():
     id = str(data.get("id"))
     name = data.get("name")
     price = data.get("price", 0)
-    list_ticket = []
     if id in cart:
         del cart[id]
-        list_ticket.remove(cart[id]["name"])
     else:
         cart[id] = {
             "id": id,
@@ -62,22 +61,141 @@ def add_to_cart():
             "price": price,
             "quantity" : 1
         }
-        list_ticket.append(cart[id]["name"])
-
     session['cart'] = cart
     quantity, amount = utils.cart_stats(cart)
+    list_ticket = utils.list_ticket_in_cart(cart)
     return jsonify({
         "total_quantity": quantity,
         "total_amount": amount,
-        "list_ticket" : list_ticket,
+        "list_ticket":list_ticket,
     })
-@app.route("/book-seat")
-def book_seat():
+@app.route('/api/get-cart', methods=['GET'])
+def cart():
+    cart = session.get('cart')
+    quantity, amount = utils.cart_stats(cart)
+    list_ticket = utils.list_ticket_in_cart(cart)
+
+    return jsonify({
+        "total_quantity": quantity,
+        "total_amount": amount,
+        "list_ticket": list_ticket,
+    })
+@app.route("/book-seat/<int:flight_id>/<float:price>/<string:type>/<int:plane>")
+def book_seat(flight_id,price,type,plane):
     tinhThanh = utils.get_tinhThanh()
-    ticket = Ve.query.all()
+    ticket = Ve.query.join(Ghe).filter(Ghe.mayBayId == plane, Ve.ve_chuyenbay == flight_id, Ghe.loaiGhe == type).all()
     len_ticket = len(ticket)
-    col = int(len_ticket/10)+1
-    return render_template("seat-book.html",tinhThanh=tinhThanh,ticket=ticket,len_ticket=len_ticket,col=col,utils=utils)
+    print(len_ticket)
+    col = int(len_ticket / 10)
+    row = int(len_ticket / col)
+    print(col)
+    print(row)
+    mapTicket = []
+    x = 0
+    for i in range(row):
+        x * i
+        mapTicket.append([])
+        for j in range(col):
+            mapTicket[i].append(ticket[x])
+            x = x + 1
+    return render_template("seat-book.html",tinhThanh=tinhThanh,mapTicket=mapTicket,\
+                           len_ticket=len_ticket,col=col,row=row,utils=utils,price=price,type=type)
+@app.route('/api/pay', methods=['post'])
+def pay():
+    data = json.loads(request.data)
+    name =  data.get("name")
+    phone = data.get("phone")
+    ic = data.get("ic")
+    address=data.get("address")
+    brithday = datetime.strptime(data.get("brithday"),"%Y-%m-%d")
+    kh=KhachHang.query.filter(KhachHang.CMND==ic).all()
+    if len(kh)>0:
+        cart = session.get('cart')
+        list_ticket = utils.list_ticket_in_cart(cart)
+        if len(list_ticket)>0:
+            for i in list_ticket:
+                utils.update_ticket_seat(i["id"],kh)
+            del session['cart']
+            return jsonify({
+                    "mess": "Success"
+            })
+        return jsonify({
+            "mess": "No tickets in the cart"
+        })
+    else:
+        add_KhachHang(tenKhachHang=name,ngaySinh=brithday,diaChi=address,CMND=ic,soDienThoai=phone)
+        kh = KhachHang.query.filter(KhachHang.CMND==ic).all()
+        if len(kh)>0:
+            cart = session.get('cart')
+            list_ticket = utils.list_ticket_in_cart(cart)
+            if len(list_ticket) > 0:
+                for i in list_ticket:
+                    utils.update_ticket_seat(i["id"],kh)
+                del session['cart']
+                return jsonify({
+                    "mess": "Success"
+                })
+        return jsonify({
+            "mess":"No tickets in the cart"
+        })
+@app.route("/api/ticket", methods=['post'])
+def update_ticket():
+    data = json.loads(request.data)
+    id_ticket = data.get("id_ticket")
+    id_user = data.get("id_user")
+    utils.issue_the_ticket(id_ticket=id_ticket,id_nhan_vien=id_user)
+    return jsonify({
+        "mess":"success"
+    })
+@app.route("/api/find-flight",methods=['post'])
+def find_flight():
+    data = json.loads(request.data)
+    id_from = int(data.get("id_from"))
+    id_to = int(data.get("id_to"))
+    date = data.get("date")
+    if date != "":
+        mess = "Tìm Thấy Chuyến Bay Phù Hợp"
+        date_time = datetime.strptime(date, "%Y-%m-%dT%H:%M")
+        list_flight = utils.read_data_fight(place_start=id_from,place_end=id_to,date=date_time)
+        list_flight_str=[]
+        for i in list_flight:
+            x = utils.get_detail_fight(i.id)
+            list_flight_str.append(x)
+        if len(list_flight_str) <= 0:
+          mess = "Không Có Chuyến Bay"
+        return jsonify({
+            "list_flight": list_flight_str,
+            "mess":mess
+        })
+    else:
+        mess = "Tìm Thấy Chuyến Bay Phù Hợp"
+        list_flight = utils.read_data_fight(place_start=id_from,place_end=id_to,date=None)
+        list_flight_str = []
+        for i in list_flight:
+            x = utils.get_detail_fight(i.id)
+            list_flight_str.append(x)
+        if len(list_flight_str) <= 0:
+          mess = "Không Có Chuyến Bay"
+        return jsonify({
+            "list_flight": list_flight_str,
+            "mess":mess
+        })
+@app.route("/api/list-seat",methods=['post'])
+def get_list_seat():
+    data = json.loads(request.data)
+    type = data.get("type")
+    id_flight = int(data.get("id_flight"))
+    id_plane = ChuyenBay.query.get(id_flight).mayBayId
+    ticket = Ve.query.join(Ghe).filter(Ghe.mayBayId == id_plane, Ve.ve_chuyenbay == id_flight, Ghe.loaiGhe == type).all()
+    list_ticket =utils.detail_list_ticket(ticket)
+    mess = "Đã Tìm Thấy"
+    if len(list_ticket)<=0:
+        mess ="Không Tìm Thấy Vé Phù Hợp"
+    return jsonify({
+        "list_ticket": list_ticket,
+        "mess": mess
+    })
+
 
 
 @app.route("/login-admin", methods=['GET', 'POST'])
@@ -91,4 +209,4 @@ def login_admin():
             login_user(user=user)
         return redirect("/admin")
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True,port=400)

@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `sanbay`
+-- Dumping data for table `tinhthanh`
 --
 
-LOCK TABLES `sanbay` WRITE;
-/*!40000 ALTER TABLE `sanbay` DISABLE KEYS */;
-INSERT INTO `sanbay` VALUES (1,'Sân bay Quốc tế Cần Thơ',10),(2,'Sân bay Quốc tế Đà Nẵng	',4),(3,'Sân bay Quốc tế Cát Bi – Hải Phòng',3),(4,'Sân bay Quốc tế Nội Bài – Hà Nội	',2),(5,'Sân bay Quốc tế Tân Sơn Nhất	',1),(6,'Sân bay Quốc tế Cam Ranhq	',7),(7,'Sân bay Quốc tế Phú Quốc	',6),(8,'Sân bay Quốc tế Vinh – Nghệ An	',9),(9,'Sân bay Quốc tế Phú Bài – Huế',8),(10,'Sân Bay Liên Khương',5);
-/*!40000 ALTER TABLE `sanbay` ENABLE KEYS */;
+LOCK TABLES `tinhthanh` WRITE;
+/*!40000 ALTER TABLE `tinhthanh` DISABLE KEYS */;
+INSERT INTO `tinhthanh` VALUES (1,'Thành phố Hồ Chí Minh'),(2,'Hà Nội'),(3,'Hải Phòng'),(4,'Đà Nẵng'),(5,'Lâm Đồng'),(6,'Kiên Giang'),(7,'Khánh Hòa'),(8,'Thừa Thiên – Huế'),(9,'Nghệ An'),(10,'Cần Thơ');
+/*!40000 ALTER TABLE `tinhthanh` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -34,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-15 17:32:21
+-- Dump completed on 2020-12-18 23:01:12

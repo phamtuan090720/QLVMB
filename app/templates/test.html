@@ -43,7 +43,8 @@
              <script>
                    document.getElementById("myDIV{{i.id}}").onclick = function(){
                       document.getElementById("myDIV{{i.id}}").classList.toggle("da-chon");
-                      addToCart({{i.id}},'{{utils.get_ghe_by_id(i.id).maGhe}}', {{i.gia}})
+                      addToCart({{i.id}},'{{utils.get_ghe_by_id(i.id).maGhe}}', {{i.gia}});
+                      readDataCart();
                     }
             </script>
         {%endif%}

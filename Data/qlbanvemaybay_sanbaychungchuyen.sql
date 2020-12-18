@@ -16,13 +16,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `ve`
+-- Dumping data for table `sanbaychungchuyen`
 --
 
-LOCK TABLES `ve` WRITE;
-/*!40000 ALTER TABLE `ve` DISABLE KEYS */;
-INSERT INTO `ve` VALUES (1,NULL,NULL,1,NULL,1000000,'Chưa Đặt'),(2,NULL,NULL,2,NULL,1000000,'Chưa Đặt'),(3,NULL,NULL,1,NULL,1000000,'Chưa Đặt'),(4,NULL,NULL,1,NULL,500000,'Chưa Đặt'),(5,NULL,NULL,1,NULL,500000,'Chưa Đặt');
-/*!40000 ALTER TABLE `ve` ENABLE KEYS */;
+LOCK TABLES `sanbaychungchuyen` WRITE;
+/*!40000 ALTER TABLE `sanbaychungchuyen` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sanbaychungchuyen` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -34,4 +33,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-15 17:32:20
+-- Dump completed on 2020-12-18 23:01:12

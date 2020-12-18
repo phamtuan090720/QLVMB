@@ -16,12 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `khachhang`
+-- Dumping data for table `chuyenbay`
 --
 
-LOCK TABLES `khachhang` WRITE;
-/*!40000 ALTER TABLE `khachhang` DISABLE KEYS */;
-/*!40000 ALTER TABLE `khachhang` ENABLE KEYS */;
+LOCK TABLES `chuyenbay` WRITE;
+/*!40000 ALTER TABLE `chuyenbay` DISABLE KEYS */;
+INSERT INTO `chuyenbay` VALUES (1,'2020-12-20 19:30:00','01:00:00',57,1),(2,'2020-12-20 19:30:00','03:00:00',57,2);
+/*!40000 ALTER TABLE `chuyenbay` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -33,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-15 17:32:20
+-- Dump completed on 2020-12-18 23:01:12

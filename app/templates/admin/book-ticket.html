@@ -1,0 +1,59 @@
+{% extends 'admin/my_master.html' %}
+{%block body%}
+<div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                           <label >Nơi Đi</label>
+                           <select class="form-control" required name="From" id="from">
+                               <option value="">Select a location...</option>
+                                       {% for tt in tinhThanh %}
+
+                                       <option value="{{tt.id}}">{{tt.tenTinhThanh}}</option>
+                                       {% endfor %}
+                                    </select>
+                                 </div>
+                                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                                    <label >Nơi Đến</label>
+                                    <select class="form-control" required name="To" id="to">
+                                       <option value="">Select a destination...</option>
+                                       {% for tt in tinhThanh %}
+                                          <option value="{{tt.id}}">{{tt.tenTinhThanh}}</option>
+                                       {%endfor%}
+                                    </select>
+                                 </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
+                                    <label >Ngày Giờ Khởi Hành:</label>
+                                    <input class="form-control" placeholder="Any" type="datetime-local" name="date" id="date">
+                                 </div>
+                                <div class="col-4">
+                                    <button class="btn btn-info mt-3" onclick="findDataFlight()">Tìm Chuyến Bay</button>
+                                </div>
+                        </div>
+                    </div>
+                             <div class="col-12 mt-2">
+                                    <div class="row">
+                                    <div class="col-6">
+                                         <label >Chuyến Bay</label>
+                                            <select class="form-control" required name="chuyenBay" id="chuyenBay">
+                                                <option value="">Select a location...</option>
+                                            </select>
+                                    </div>
+                                        <div class="col-3">
+                                          <label >Hạng Ghế</label>
+                                            <select class="form-control" required name="hangGhe" id="type">
+                                                <option value="">Chọn Hạng Ghế</option>
+                                                <option value="VIP">VIP</option>
+                                                <option value="Normal">Normal</option>
+                                            </select>
+                                    </div>
+                                        <div class="col-12">
+                                        <button class="btn btn-info mt-3" onclick="getListTicket()" >Tìm kiếm Vé</button>
+                                        </div>
+                                </div>
+                             </div>
+                </div>
+</div>
+<script src="{{ url_for('static', filename='js/api-book-seat.js') }}"></script>
+{%endblock%}
