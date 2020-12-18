@@ -1,5 +1,18 @@
 {% extends 'admin/my_master.html' %}
 {%block body%}
+<style>
+   table.list-ticket img{
+       height: 40px;
+    }
+   span.color{
+    padding-left: 20px;
+    border: 1px solid black;
+   }
+   list-ticket-container{
+      height: 500px;
+      OVERFLOW-Y: hidden;
+   }
+</style>
 <div class="container">
                 <div class="row">
                     <div class="col-12">
@@ -32,7 +45,7 @@
                                 </div>
                         </div>
                     </div>
-                             <div class="col-12 mt-2">
+                             <div class="col-12 mt-2 mb-5">
                                     <div class="row">
                                     <div class="col-6">
                                          <label >Chuyến Bay</label>
@@ -53,6 +66,29 @@
                                         </div>
                                 </div>
                              </div>
+                </div>
+                    <h1 class="title text-center">Seat</h1>
+                    <h3 class="text-center">{{type}} seat diagram</h3>
+                    <p class="type"><span class="color bg-secondary mr-3"></span>:was placed</p>
+                    <p class="type"><span class="color bg-danger mr-3"></span>:selected</p>
+                    <p class="type"><span class="color mr-3"></span>:Not selected yet</p>
+                <div class="row">
+                    <div class="list-ticket-container col-12 mb-5">
+                         <table class="list-ticket mt-4">
+                                <tbody id="listTicket">
+                                    <tr class="mb-3 mr-3">
+                                        <td>1</td>
+                                        <td><img id="1" onclick="select_seat(1)" src="{{url_for('static',filename='images/icon-seat.png')}}" alt="" class="img-fluid seat ml-2"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    </div>
+
+                </div>
+                 <div class="payment_detail">
+                     <p class="ticket">Ticket selected:<span id="list_ticket"></span></p>
+                    <p >Price: <span id="price">{{price}}</span></p>
+                    <p class="total">Total: <span id="amount"></span></p>
                 </div>
 </div>
 <script src="{{ url_for('static', filename='js/api-book-seat.js') }}"></script>

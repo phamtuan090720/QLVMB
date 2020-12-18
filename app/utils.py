@@ -159,7 +159,8 @@ def detail_list_ticket(list):
                 "id": i.id,
                 "loaiGhe": get_ghe_by_id(i.id).loaiGhe,
                 "gia": i.gia,
-                "mayBay": get_mayBay_by_id(get_ghe_by_id(i.id).mayBayId).maMayBay
+                "mayBay": get_mayBay_by_id(get_ghe_by_id(i.id).mayBayId).maMayBay,
+                "trannThai": get_ghe_by_id(i.id).trangThai
             }
             list_detail_ticket.append(detail_ticket)
     return list_detail_ticket

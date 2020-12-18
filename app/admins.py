@@ -73,6 +73,8 @@ class BookTicket(BaseView):
     def index(self):
         tinhThanh = utils.get_tinhThanh()
         return self.render('admin/book-ticket.html',tinhThanh=tinhThanh)
+    def is_accessible(self):
+        return current_user.is_authenticated
 
 class LogoutView(BaseView):
     @expose('/')
