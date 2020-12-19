@@ -194,6 +194,7 @@ def find_flight():
 
 @app.route("/api/list-seat", methods=['post'])
 def get_list_seat():
+    utils.remove_cart()
     data = json.loads(request.data)
     type = data.get("type")
     id_flight = int(data.get("id_flight"))
@@ -208,6 +209,52 @@ def get_list_seat():
         "list_ticket": list_ticket,
         "mess": mess
     })
+
+@app.route("/api/get-info-customer", methods=['post'])
+def info_customer():
+    data = json.loads(request.data)
+    ic = data.get("cmnd")
+    ten = data.get("ten")
+    sdt  = data.get("sdt")
+    date = data.get("bd")
+    kh = None
+    if date!="":
+        bd = datetime.strptime(date,"%Y-%m-%d")
+        kh = utils.read_data_Kh(cmnd=ic,ngaySinh=bd,hoTen=ten,sdt=sdt)
+    if kh!=None:
+        mess = "Đã Tìm Thấy Thông Tin Khách Hàng"
+        return jsonify({
+        "id": kh.id,
+        "ten":kh.tenKhachHang,
+        "cmnd":kh.CMND,
+        "sdt":kh.soDienThoai,
+        "diaChi":kh.diaChi,
+        "ngaySinh":str(kh.ngaySinh),
+        "mess": mess,
+    })
+    else:
+        return jsonify({
+            "mess":"Không Tìm Thấy Khách Hàng"
+        })
+
+@app.route("/api/book-ticket",methods=["post"])
+def book_ticket():
+    data = json.loads(request.data)
+    kh = int(data.get("id_kh"))
+    nv = int(data.get("id_nhanVien"))
+    cart = session.get('cart')
+    list_ticket = utils.list_ticket_in_cart(cart)
+    if len(list_ticket)>0:
+        for tk in list_ticket:
+            utils.book_seat_ticket(id_ticket=tk["id"],id_kh=kh,i_nhanvien=nv)
+        del session['cart']
+        return jsonify({
+            "mess": "Đặt Vé Thành Công"
+            })
+    else:
+        return jsonify({
+            "mess": "Đặt Vé Thất Bại"
+        })
 
 
 @app.route("/login-admin", methods=['GET', 'POST'])

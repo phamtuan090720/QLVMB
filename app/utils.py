@@ -160,7 +160,8 @@ def detail_list_ticket(list):
                 "loaiGhe": get_ghe_by_id(i.id).loaiGhe,
                 "gia": i.gia,
                 "mayBay": get_mayBay_by_id(get_ghe_by_id(i.id).mayBayId).maMayBay,
-                "trannThai": get_ghe_by_id(i.id).trangThai
+                "trannThai": get_ghe_by_id(i.id).trangThai,
+                "ten": get_ghe_by_id(i.id).maGhe
             }
             list_detail_ticket.append(detail_ticket)
     return list_detail_ticket
@@ -173,6 +174,7 @@ def cart_stats(cart):
             total_quantity = total_quantity + p["quantity"]
             total_amount = total_amount + p["quantity"] * p["price"]
     return total_quantity, total_amount
+
 
 
 def list_ticket_in_cart(cart):
@@ -301,5 +303,28 @@ def get_detail_fight(id):
         "id_plane":self.mayBayId
     }
     return detail_fight
-ticket = Ve.query.join(Ghe).filter(Ghe.mayBayId == 1, Ve.ve_chuyenbay == 1, Ghe.loaiGhe == "VIP").all()
-print(ticket)
+def remove_cart():
+    if 'cart' in session:
+        del session['cart']
+def read_data_Kh(cmnd,ngaySinh,hoTen,sdt):
+    kh = None
+    if cmnd and ngaySinh and hoTen and sdt:
+        l_kh = KhachHang.query.filter(KhachHang.CMND == cmnd, KhachHang.ngaySinh == ngaySinh, KhachHang.tenKhachHang == hoTen,
+                               KhachHang.soDienThoai == sdt).all()
+        if len(l_kh)>0:
+            kh = l_kh[0]
+            return kh
+        else:
+            return None
+    return kh
+def book_seat_ticket(id_ticket,id_kh,i_nhanvien):
+    tk = get_ticket_by_id(id_ticket)
+    seat = get_ghe_by_id(id_ticket)
+    tk.ve_khachHang = id_kh
+    tk.ve_nhanvien = i_nhanvien
+    tk.ngayXuatVe = datetime.now()
+    tk.trangThaiDat = "Đã Đặt"
+    seat.trangThai = "Đã Đặt"
+    db.session.add(tk)
+    db.session.add(seat)
+    db.session.commit()
