@@ -21,6 +21,7 @@
 
 LOCK TABLES `sanbaychungchuyen` WRITE;
 /*!40000 ALTER TABLE `sanbaychungchuyen` DISABLE KEYS */;
+INSERT INTO `sanbaychungchuyen` VALUES (1,'00:40:00',NULL,1,1),(2,'00:17:00','không có gì',10,1);
 /*!40000 ALTER TABLE `sanbaychungchuyen` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -33,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-19 18:13:52
+-- Dump completed on 2020-12-22 20:46:04
